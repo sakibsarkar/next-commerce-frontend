@@ -12,4 +12,5 @@ export interface ICart {
   shopId: string;
   shopName: string;
   discount?: number;
+  isOutOfStock: boolean;
 }

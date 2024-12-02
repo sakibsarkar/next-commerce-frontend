@@ -21,7 +21,7 @@ const cartSlice = createSlice({
     addToCart: (
       state,
       action: PayloadAction<{
-        payload: Omit<ICart, "cartId">;
+        payload: Omit<ICart, "cartId" | "isOutOfStock">;
         replace?: boolean;
       }>
     ) => {
@@ -39,6 +39,7 @@ const cartSlice = createSlice({
           {
             ...payload,
             price,
+            isOutOfStock: false,
             cartId: v4(),
           },
         ];
@@ -64,6 +65,7 @@ const cartSlice = createSlice({
       } else {
         state.items.push({
           ...payload,
+          isOutOfStock: false,
           price,
           cartId: v4(),
         });
@@ -80,11 +82,40 @@ const cartSlice = createSlice({
         state.total -= item.price * item.quantity;
       }
     },
+
+    updateCart: (
+      state,
+      action: PayloadAction<{
+        cartId: string;
+        payload: Partial<Pick<ICart, "quantity" | "isOutOfStock">>;
+      }>
+    ) => {
+      const item = state.items.find(
+        (item) => item.cartId === action.payload.cartId
+      );
+      const payload = action.payload.payload;
+      if (!item) return;
+
+      if (payload.quantity) {
+        item.quantity = payload.quantity;
+        state.total = state.items.reduce(
+          (acc, item) => acc + item.price * item.quantity,
+          0
+        );
+      }
+
+      if (payload.isOutOfStock) {
+        item.isOutOfStock = payload.isOutOfStock;
+        state.total -= item.price * item.quantity;
+      }
+    },
+
     clearCart: (state) => {
       state.items = [];
     },
   },
 });
 
-export const { addToCart, removeFromCart, clearCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, clearCart, updateCart } =
+  cartSlice.actions;
 export default cartSlice.reducer;

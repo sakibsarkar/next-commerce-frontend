@@ -1,26 +1,78 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { removeFromCart } from "@/redux/features/cart/cart.slice";
+import { baseUrl } from "@/redux/api/appSlice";
+import { removeFromCart, updateCart } from "@/redux/features/cart/cart.slice";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import { IProduct } from "@/types/product";
 import { X } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
+import { toast } from "sonner";
 
 const CartView = () => {
   const { items, total } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
+  const [isLoading, setIsLoading] = useState(false);
+
   const totalDiscountPrice = items.reduce((acc, item) => {
     const discount = item.discount;
     const price = item.price;
     const quantity = item.quantity;
+    const isOutOfStock = item.isOutOfStock;
 
-    if (discount) {
+    if (discount && !isOutOfStock) {
       const discountPrice = (price * discount) / 100;
       return acc + discountPrice * quantity;
     }
 
     return acc + 0;
   }, 0);
+
+  const changeCartQuantity = async ({
+    cartId,
+    value,
+  }: {
+    cartId: string;
+    value: number;
+  }) => {
+    const cartItem = items.find((item) => item.cartId === cartId);
+    if (!cartItem) return;
+    const willQuantity = cartItem.quantity + value;
+
+    const colorId = cartItem.colorId;
+    const sizeId = cartItem.sizeId;
+
+    if (willQuantity <= 0) {
+      return;
+    }
+    try {
+      setIsLoading(true);
+      const res = await fetch(`${baseUrl}/product/get/${cartItem.productId}`);
+      if (!res.ok) {
+        toast.error("Something went wrong");
+        setIsLoading(false);
+        return;
+      }
+      const product = (await res.json()) as { data: IProduct };
+
+      const availAbleQuantity =
+        product.data.colors
+          .find((color) => color.id === colorId)
+          ?.sizes.find((size) => size.id === sizeId)?.quantity || 0;
+
+      if (willQuantity > availAbleQuantity) {
+        toast.error(`Product only have ${availAbleQuantity} in stock`);
+        setIsLoading(false);
+        return;
+      }
+
+      dispatch(updateCart({ cartId, payload: { quantity: willQuantity } }));
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="container mx-auto px-4 py-8 min-h-screen">
@@ -68,14 +120,24 @@ const CartView = () => {
               <div className="text-right">${item.price.toFixed(2)}</div>
               <div className="flex justify-center items-center gap-2">
                 <button
-                  //   onClick={() => updateQuantity(item.cartId, false)}
+                  onClick={() =>
+                    changeCartQuantity({
+                      cartId: item.cartId,
+                      value: -1,
+                    })
+                  }
                   className="h-6 w-6 flex items-center justify-center rounded border hover:bg-gray-100"
                 >
                   -
                 </button>
                 <span className="w-8 text-center">{item.quantity}</span>
                 <button
-                  //   onClick={() => updateQuantity(item.cartId, true)}
+                  onClick={() =>
+                    changeCartQuantity({
+                      cartId: item.cartId,
+                      value: 1,
+                    })
+                  }
                   className="h-6 w-6 flex items-center justify-center rounded border hover:bg-gray-100"
                 >
                   +
@@ -112,6 +174,14 @@ const CartView = () => {
           </div>
         </div>
       </div>
+
+      {isLoading ? (
+        <div className="w-full h-full absolute top-0 left-0 z-[40] bg-[#ffffffab] center">
+          loading...
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

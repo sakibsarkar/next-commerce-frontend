@@ -1,16 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "https://cssicon.space/css/icons.css";
-
-.icon,
-.icon:before,
-.icon:after,
-.icon i,
-.icon i:before,
-.icon i:after {
-  transition: all 0.4s ease;
-}
 
 @layer components {
   .center {
@@ -24,20 +14,7 @@
 
 .gridResponsive {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 300px));
-}
-
-.PhoneInputInput {
-  outline: none;
-  width: 100%;
-  height: 100%;
-}
-
-.position_center {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation: spin 4s linear infinite; /* Rotate continuously */
+  grid-template-columns: repeat(auto-fill, minmax(222px, 250px));
 }
 
 @keyframes spin {
@@ -63,13 +40,13 @@
   background-color: #c2c2c2;
 }
 
-.no-drag {
+/* .no-drag {
   -webkit-user-drag: none;
   -khtml-user-drag: none;
   -moz-user-drag: none;
   -o-user-drag: none;
   user-drag: none;
-}
+} */
 
 @layer base {
   :root {
@@ -148,20 +125,9 @@
   background: linear-gradient(169deg, #12ff94 5%, #fecaff 50%, #f0bff1 100%);
 }
 
-.reset-all ul,
-.reset-all li,
-.reset-all h1,
-.reset-all ol,
-.reset-all p {
-  all: revert !important; /* This will unset all inherited styles */
-  margin: 0 !important; /* Reset margins */
-  padding: revert !important; /* Reset padding */
-}
-
 .spin_center {
   animation: spin 2s linear infinite;
 }
-
 
 .gridUser_responsive {
   display: grid;

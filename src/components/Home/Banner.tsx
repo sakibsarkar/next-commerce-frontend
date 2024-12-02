@@ -3,9 +3,9 @@ import Image from "next/image";
 
 const Banner = () => {
   return (
-    <div className="w-full h-[60vh]  flex items-start justify-start gap-[20px] mt-[20px]">
+    <div className="min-w-full h-[60vh]  flex items-start justify-start gap-[20px] mt-[20px] bg-white p-[15px]">
       <div className="relative overflow-hidden bg-[#f6f6f6] w-full h-full">
-        <div className="relative mx-auto w-full px-4 py-24 sm:px-6 lg:px-8">
+        <div className="relative mx-auto w-full px-4 py-[50px] sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
             <div className="relative z-10 md:text-left">
               <div className="relative">
@@ -76,7 +76,7 @@ const Banner = () => {
             <h4 className="text-mainTxt text-[22px] font-[600] w-[150px]">
               <span className="text-main">Nutral</span> Juice maker
             </h4>
-            <button className="mt-[25px] underline font-[600]">Explre</button>
+            <button className="mt-[25px] underline font-[600]">Explore</button>
           </div>
         </div>
       </div>

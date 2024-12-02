@@ -14,7 +14,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { IoMenu } from "react-icons/io5";
-import ThemeChanger from "./TheamChanger";
 
 const DashboardHeader: React.FC<ISideBarState> = ({ setIsOpen }) => {
   const { user } = useAppSelector((state) => state.auth);
@@ -35,7 +34,6 @@ const DashboardHeader: React.FC<ISideBarState> = ({ setIsOpen }) => {
         <IoMenu />
       </Button>
       <div className="flex items-center justify-end gap-[8px]">
-        <ThemeChanger />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Avatar className="cursor-pointer">

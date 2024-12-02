@@ -13,6 +13,7 @@ import storage from "redux-persist/lib/storage";
 import { api } from "../api/appSlice";
 import authReducer from "../features/auth/auth.slice";
 import cartReducer from "../features/cart/cart.slice";
+import productComparisonReducer from "../features/product/productComparison.slice";
 
 // Persist configuration
 const persistConfig = {
@@ -29,6 +30,7 @@ const store = configureStore({
   reducer: {
     auth: persistAuthReducer,
     cart: cartReducer,
+    productComparison: productComparisonReducer,
     [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>

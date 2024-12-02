@@ -1,4 +1,5 @@
 import { ICart } from "@/types/cart";
+import { getDiscountPrice } from "@/utils/product";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "sonner";
 import { v4 } from "uuid";
@@ -29,14 +30,19 @@ const cartSlice = createSlice({
         (item) => item.shopId === payload.shopId
       );
 
+      const price = payload.discount
+        ? getDiscountPrice(payload.price, payload.discount)
+        : payload.price;
+
       if (action.payload.replace) {
         state.items = [
           {
             ...payload,
+            price,
             cartId: v4(),
           },
         ];
-        state.total = payload.price * payload.quantity;
+        state.total = price * payload.quantity;
         return;
       }
 
@@ -54,20 +60,25 @@ const cartSlice = createSlice({
 
       if (isExist) {
         isExist.quantity += payload.quantity;
-        state.total += payload.price * payload.quantity;
+        state.total += price * payload.quantity;
       } else {
         state.items.push({
           ...payload,
+          price,
           cartId: v4(),
         });
 
-        state.total += payload.price * payload.quantity;
+        state.total += price * payload.quantity;
       }
     },
-    removeFromCart: (state, action) => {
-      state.items = state.items.filter(
-        (item) => item.productId !== action.payload
-      );
+    removeFromCart: (state, action: PayloadAction<string>) => {
+      const item = state.items.find((item) => item.cartId === action.payload);
+      if (item) {
+        state.items = state.items.filter(
+          (item) => item.cartId !== action.payload
+        );
+        state.total -= item.price * item.quantity;
+      }
     },
     clearCart: (state) => {
       state.items = [];

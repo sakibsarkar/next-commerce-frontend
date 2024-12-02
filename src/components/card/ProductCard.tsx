@@ -1,17 +1,18 @@
 "use client";
 import { addToCart } from "@/redux/features/cart/cart.slice";
-import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import { useAppSelector } from "@/redux/hook";
 import { IProduct } from "@/types/product";
 import { getDiscountPrice } from "@/utils/product";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 import CarConflictVendorWarning from "../shared/CarConflictVendorWarning";
 import { Separator } from "../ui/separator";
 import ProductToolTip from "./ProductToolTip";
 const ProductCard = ({ product }: { product: IProduct }) => {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const { items } = useAppSelector((state) => state.cart);
   const [isConflict, setIsConflict] = useState(false);
 
@@ -33,9 +34,10 @@ const ProductCard = ({ product }: { product: IProduct }) => {
           sizeName: product.colors[0].sizes[0].size,
           colorName: product.colors[0].color,
           image: product.images[0],
-          price: getDiscountPrice(product.price, product.discount),
+          price: product.price,
           name: product.name,
           shopName: product.shopInfo.name,
+          discount: product.discount,
         },
         replace: Boolean(replace),
       })

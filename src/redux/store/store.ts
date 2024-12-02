@@ -24,12 +24,16 @@ const persistAuthReducer = persistReducer(
   { ...persistConfig, key: "auth" },
   authReducer
 );
+const persistCartReducer = persistReducer(
+  { ...persistConfig, key: "cart" },
+  cartReducer
+);
 
 // Configure store
 const store = configureStore({
   reducer: {
     auth: persistAuthReducer,
-    cart: cartReducer,
+    cart: persistCartReducer,
     productComparison: productComparisonReducer,
     [api.reducerPath]: api.reducer,
   },

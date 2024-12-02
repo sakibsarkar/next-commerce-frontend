@@ -11,4 +11,5 @@ export interface ICart {
   name: string;
   shopId: string;
   shopName: string;
+  discount?: number;
 }

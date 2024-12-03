@@ -13,6 +13,7 @@ export const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const baseQuery = fetchBaseQuery({
   baseUrl: baseUrl,
+  credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
     if (token) {
@@ -68,6 +69,6 @@ export const api = createApi({
   reducerPath: "api",
 
   baseQuery: baseQueryWithRefreshToken,
-  tagTypes: ["user", "product"],
+  tagTypes: ["user", "product", "shippingAddress", "order"],
   endpoints: () => ({}),
 });

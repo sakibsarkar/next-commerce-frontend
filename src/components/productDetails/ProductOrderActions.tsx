@@ -157,9 +157,9 @@ const ProductOrderActions = ({ product }: { product: IProduct }) => {
                 onClick={() => handleChangeSize(size)}
                 className={`${
                   selectedSize?.size === size.size
-                    ? "bg-primaryMat text-white"
-                    : "bg-primaryMat/50 text-white"
-                }  p-2 rounded-md mr-2 mb-2 disabled:bg-red-500 disabled:opacity-[0.5]`}
+                    ? "bg-main/90 text-white border-transparent"
+                    : "bg-transparent text-main border-main"
+                }  p-2 rounded-md mr-2 mb-2 disabled:bg-red-500 disabled:opacity-[0.5] border-[1px]`}
               >
                 Size: {size.size}
                 {isStockout && <span className="ml-2">stock out</span>}

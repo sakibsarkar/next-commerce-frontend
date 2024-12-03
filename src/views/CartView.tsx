@@ -3,10 +3,13 @@
 import { Button } from "@/components/ui/button";
 import { baseUrl } from "@/redux/api/appSlice";
 import { removeFromCart, updateCart } from "@/redux/features/cart/cart.slice";
+import { addItemsToCheckout } from "@/redux/features/checkout/checkout.slice";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { IProduct } from "@/types/product";
+import { getDiscountPrice } from "@/utils/product";
 import { X } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -14,6 +17,8 @@ const CartView = () => {
   const { items, total } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(false);
+
+  const router = useRouter();
 
   const totalDiscountPrice = items.reduce((acc, item) => {
     const discount = item.discount;
@@ -72,6 +77,30 @@ const CartView = () => {
     } catch (error) {
       setIsLoading(false);
     }
+  };
+
+  const handleProccedToCheckout = () => {
+    const checkoutItems = items
+      .filter((item) => !item.isOutOfStock)
+      .map((item) => ({
+        productId: item.productId,
+        price: item.price,
+        quantity: item.quantity,
+        colorId: item.colorId,
+        sizeId: item.sizeId,
+        colorName: item.colorName,
+        isOutOfStock: item.isOutOfStock,
+        shopId: item.shopId,
+        shopName: item.shopName,
+        sizeName: item.sizeName,
+        discount: item.discount,
+        image: item.image,
+        name: item.name,
+      }));
+
+    dispatch(addItemsToCheckout(checkoutItems));
+
+    router.push("/checkout");
   };
 
   return (
@@ -145,7 +174,10 @@ const CartView = () => {
               </div>
               <div className="text-right">{item.discount}%</div>
               <div className="text-right">
-                ${(item.price * item.quantity).toFixed(2)}
+                $
+                {(
+                  getDiscountPrice(item.price, item.discount) * item.quantity
+                ).toFixed(2)}
               </div>
             </div>
           ))}
@@ -157,7 +189,7 @@ const CartView = () => {
             <div className="space-y-2">
               <div className="flex justify-between">
                 <span>Subtotal</span>
-                <span>${total + totalDiscountPrice}</span>
+                <span>${(total + totalDiscountPrice).toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-red-600">
                 <span>Discount</span>
@@ -168,8 +200,12 @@ const CartView = () => {
                 <span>${total.toFixed(2)}</span>
               </div>
             </div>
-            <Button className="w-full" size="lg">
-              proceed to checkout
+            <Button
+              onClick={handleProccedToCheckout}
+              className="w-full"
+              size="lg"
+            >
+              Proceed to checkout
             </Button>
           </div>
         </div>

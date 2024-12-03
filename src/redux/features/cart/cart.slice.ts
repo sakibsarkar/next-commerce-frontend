@@ -30,7 +30,7 @@ const cartSlice = createSlice({
         (item) => item.shopId === payload.shopId
       );
 
-      const price = payload.discount
+      const discountPrice = payload.discount
         ? getDiscountPrice(payload.price, payload.discount)
         : payload.price;
 
@@ -38,12 +38,11 @@ const cartSlice = createSlice({
         state.items = [
           {
             ...payload,
-            price,
             isOutOfStock: false,
             cartId: v4(),
           },
         ];
-        state.total = price * payload.quantity;
+        state.total = discountPrice * payload.quantity;
         return;
       }
 
@@ -61,16 +60,15 @@ const cartSlice = createSlice({
 
       if (isExist) {
         isExist.quantity += payload.quantity;
-        state.total += price * payload.quantity;
+        state.total += discountPrice * payload.quantity;
       } else {
         state.items.push({
           ...payload,
           isOutOfStock: false,
-          price,
           cartId: v4(),
         });
 
-        state.total += price * payload.quantity;
+        state.total += discountPrice * payload.quantity;
       }
     },
     removeFromCart: (state, action: PayloadAction<string>) => {
@@ -79,7 +77,8 @@ const cartSlice = createSlice({
         state.items = state.items.filter(
           (item) => item.cartId !== action.payload
         );
-        state.total -= item.price * item.quantity;
+        state.total -=
+          getDiscountPrice(item.price, item.discount) * item.quantity;
       }
     },
 

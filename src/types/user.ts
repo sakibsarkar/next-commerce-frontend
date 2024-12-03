@@ -1,13 +1,12 @@
-export type TRole = "user" | "admin";
+export type TRole = "ADMIN" | "CUSTOMER" | "VENDOR";
 
 export type TUser = {
   _id: string;
   email: string;
-  firstName: string;
-  lastName: string;
-  role: "user" | "admin";
+  first_name: string;
+  last_name: string;
+  role: TRole;
   createdAt: string;
-  isPremium: boolean;
   image?: string;
   auth?: {
     role: TRole;

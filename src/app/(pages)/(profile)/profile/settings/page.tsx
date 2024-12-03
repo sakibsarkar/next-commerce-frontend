@@ -19,22 +19,22 @@ import { toast } from "sonner";
 import * as Yup from "yup";
 
 const validationSchema = Yup.object({
-  firstName: Yup.string().required("* First Name is required"),
-  lastName: Yup.string().required("* Last Name is required"),
+  first_name: Yup.string().required("* First Name is required"),
+  last_name: Yup.string().required("* Last Name is required"),
   image: Yup.mixed().optional(),
 });
 type Image = { image: string | File | null | undefined };
 
 const ProfileUpdate = () => {
   const { user, token } = useAppSelector((state) => state.auth);
-  const { firstName, lastName, image } = user as TUser;
+  const { first_name, last_name, image } = user as TUser;
   const initialValues = {
-    firstName,
-    lastName,
+    first_name,
+    last_name,
     image: "",
   };
   type FormValues = typeof initialValues & Image;
-  type key = keyof Pick<FormValues, "firstName" | "lastName">;
+  type key = keyof Pick<FormValues, "first_name" | "last_name">;
   const [profileUrl, setProfileUrl] = useState(image || "/images/avatar.jpg");
 
   // mutation
@@ -59,11 +59,14 @@ const ProfileUpdate = () => {
       if (image) {
         const formData = new FormData();
         formData.append("file", image);
-        await updateProfileImage(formData);
+        const res = await updateProfileImage(formData);
+        const error = res.error as any;
+        if (!error) {
+          toast.success("Image updated successfully");
+        }
       }
 
       if (!Object.keys(payload).length) {
-        toast.success("nothing");
         toast.dismiss(toastId);
         return;
       }
@@ -139,36 +142,36 @@ const ProfileUpdate = () => {
             </div>
 
             <div className="mb-4">
-              <Label htmlFor="firstName">First Name *</Label>
+              <Label htmlFor="first_name">First Name *</Label>
               <Field
                 as={Input}
                 type="text"
-                name="firstName"
+                name="first_name"
                 className="mt-1 block w-full px-3 py-2 border border-borderColor rounded-md outline-none"
               />
               <ErrorMessage
-                name="firstName"
+                name="first_name"
                 component="div"
                 className="text-red-500 text-sm mt-[5px]"
               />
             </div>
 
             <div className="mb-4">
-              <Label htmlFor="lastName">Last Name *</Label>
+              <Label htmlFor="last_name">Last Name *</Label>
               <Field
                 type="text"
                 as={Input}
-                name="lastName"
+                name="last_name"
                 className="mt-1 block w-full px-3 py-2 border border-borderColor rounded-md outline-none"
               />
               <ErrorMessage
-                name="lastName"
+                name="last_name"
                 component="div"
                 className="text-red-500 text-sm mt-[5px]"
               />
             </div>
             <div className="mb-4">
-              <Label htmlFor="lastName">Email</Label>
+              <Label htmlFor="email">Email</Label>
               <Input
                 readOnly
                 value={user?.email}
@@ -176,12 +179,11 @@ const ProfileUpdate = () => {
               />
             </div>
 
-            <Button
-              type="submit"
-              className="bg-primaryMat text-white w-[100px]"
-            >
-              Submit
-            </Button>
+            <div className="flex justify-end w-full">
+              <Button type="submit" className="bg-main text-white w-[100px]">
+                Submit
+              </Button>
+            </div>
           </Form>
         )}
       </Formik>

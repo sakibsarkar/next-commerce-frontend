@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useResetPasswordMutation } from "@/redux/features/auth/auth.api";
+import { useChangePasswordMutation } from "@/redux/features/auth/auth.api";
 import { useAppSelector } from "@/redux/hook";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import "react-phone-number-input/style.css";
@@ -28,7 +28,7 @@ const UpdatePassword = () => {
   const { user, token } = useAppSelector((state) => state.auth);
 
   // mutaions
-  const [resetPassword] = useResetPasswordMutation();
+  const [resetPassword] = useChangePasswordMutation();
 
   const onSubmit = async (values: FormValues) => {
     const toastId = toast.loading("Please wait");
@@ -102,13 +102,15 @@ const UpdatePassword = () => {
               />
             </div>
 
-            <Button
-              type="submit"
-              disabled={!isValid}
-              className="bg-primaryMat text-white w-[100px]"
-            >
-              Submit
-            </Button>
+            <div className="flex justify-end w-full">
+              <Button
+                type="submit"
+                disabled={!isValid}
+                className="bg-main text-white w-[100px]"
+              >
+                Submit
+              </Button>
+            </div>
           </Form>
         )}
       </Formik>

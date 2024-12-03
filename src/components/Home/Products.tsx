@@ -6,7 +6,7 @@ import ProductCard from "../card/ProductCard";
 import { Separator } from "../ui/separator";
 
 const Products = async () => {
-  const res = await fetch(`${baseUrl}/product/get?limit=20`, {
+  const res = await fetch(`${baseUrl}/product/get?limit=10`, {
     next: {
       revalidate: 20 * 60, // 20 minutes
     },

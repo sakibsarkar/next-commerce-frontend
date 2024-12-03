@@ -37,10 +37,10 @@ const ProfileSidebar = () => {
           <Link
             href={href}
             key={"profile" + i}
-            className={`w-full md:w-[240px] border-[1px] border-borderColor py-[12px] rounded-[5px] flex items-center justify-start gap-[5px] font-[500] pl-[20px] ${
+            className={`w-full md:w-[240px] border-[1px]  py-[12px] rounded-[5px] flex items-center justify-start gap-[5px] font-[500] pl-[20px] ${
               path === href
-                ? "bg-primaryMat text-white"
-                : "bg-white text-primaryTxt"
+                ? "bg-main text-white border-transparent"
+                : "bg-transparent text-black border-borderColor"
             }`}
           >
             <Icon /> {label}

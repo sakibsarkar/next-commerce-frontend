@@ -9,15 +9,15 @@ const userRelatedApi = api.injectEndpoints({
   endpoints: (builder) => ({
     updateUserInfo: builder.mutation({
       query: (payload) => ({
-        url: "/user/update",
-        method: "PUT",
+        url: "/auth/update-profile",
+        method: "PATCH",
         body: payload,
       }),
       invalidatesTags: ["user"],
     }),
     updateUserImage: builder.mutation<{ data: string }, FormData>({
       query: (file) => ({
-        url: `/user/update-profile-image`,
+        url: `/auth/update-profile-image`,
         method: "PUT",
         body: file,
       }),
@@ -28,7 +28,7 @@ const userRelatedApi = api.injectEndpoints({
       IQueryOptions
     >({
       query: ({ limit, page, searchTerm }) => ({
-        url: `/user/all?searchTerm=${searchTerm}&page=${page || "1"}&limit=${
+        url: `/auth/all?searchTerm=${searchTerm}&page=${page || "1"}&limit=${
           limit || 10
         }`,
         method: "GET",

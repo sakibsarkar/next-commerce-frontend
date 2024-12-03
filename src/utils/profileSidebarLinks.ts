@@ -1,10 +1,5 @@
 import { CiUser } from "react-icons/ci";
-import {
-  RiLockPasswordLine,
-  RiUserFollowLine,
-  RiUserSettingsLine,
-} from "react-icons/ri";
-import { SlUserFollowing } from "react-icons/sl";
+import { RiLockPasswordLine, RiUserSettingsLine } from "react-icons/ri";
 export const userProfileLinks = [
   {
     href: "/profile",
@@ -20,15 +15,5 @@ export const userProfileLinks = [
     href: "/profile/update-password",
     label: "Security",
     Icon: RiLockPasswordLine,
-  },
-  {
-    href: "/profile/followers",
-    label: "Followers",
-    Icon: RiUserFollowLine,
-  },
-  {
-    href: "/profile/following",
-    label: "Following",
-    Icon: SlUserFollowing,
   },
 ];

@@ -1,27 +1,13 @@
 "use client";
-import Loader from "@/components/shared/Loader";
 import { useAppSelector } from "@/redux/hook";
 import { format } from "date-fns";
-import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { FaPen } from "react-icons/fa";
 
 const Profile = () => {
   const { isLoading, user } = useAppSelector((state) => state.auth);
-
-  const router = useRouter();
-
-  if (isLoading) {
-    return <Loader className="!h-screen" />;
-  }
-  if (!user) {
-    Cookies.set("redirect", "/profile");
-    router.push("/");
-
-    return <></>;
-  }
+  const test = useAppSelector((state) => state.auth);
 
   return (
     <div className="w-full rounded-[10px] px-[25px] py-[20px]">
@@ -43,7 +29,7 @@ const Profile = () => {
           </span>
         </Link>
         <h3 className="text-[20px] font-[600] mt-[20px]">
-          {user?.firstName} {user?.lastName}
+          {user?.first_name} {user?.last_name}
         </h3>
       </div>
       <p className="text-primaryTxt mt-[20px]">

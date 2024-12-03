@@ -40,13 +40,13 @@
   background-color: #c2c2c2;
 }
 
-/* .no-drag {
+.no-drag {
   -webkit-user-drag: none;
   -khtml-user-drag: none;
   -moz-user-drag: none;
   -o-user-drag: none;
   user-drag: none;
-} */
+}
 
 @layer base {
   :root {
@@ -132,4 +132,13 @@
 .gridUser_responsive {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(277px, 1fr));
+}
+.reset-all ul,
+.reset-all li,
+.reset-all h1,
+.reset-all ol,
+.reset-all p {
+  all: revert !important; /* This will unset all inherited styles */
+  margin: 0 !important; /* Reset margins */
+  padding: revert !important; /* Reset padding */
 }

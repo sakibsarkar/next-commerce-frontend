@@ -23,6 +23,11 @@ const CarConflictVendorWarning: React.FC<Iprops> = ({
   setIsOpen,
   onReplace,
 }) => {
+  const handleReplace = () => {
+    onReplace();
+    setIsOpen(false);
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent>
@@ -39,7 +44,7 @@ const CarConflictVendorWarning: React.FC<Iprops> = ({
           <Button variant="outline" onClick={() => setIsOpen(false)}>
             Keep Current Cart
           </Button>
-          <Button onClick={onReplace}>Replace with New Product</Button>
+          <Button onClick={handleReplace}>Replace with New Product</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

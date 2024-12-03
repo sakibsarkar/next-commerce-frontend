@@ -23,22 +23,24 @@ const ProductCard = ({ product }: { product: IProduct }) => {
       return;
     }
 
+    const payload = {
+      colorId: product.colors[0].id,
+      sizeId: product.colors[0].sizes[0].id,
+      quantity: 1,
+      productId: product.id,
+      shopId: product.shopId,
+      sizeName: product.colors[0].sizes[0].size,
+      colorName: product.colors[0].color,
+      image: product.images[0],
+      price: product.price,
+      name: product.name,
+      shopName: product.shopInfo.name,
+      discount: product.discount,
+    };
+
     dispatch(
       addToCart({
-        payload: {
-          colorId: product.colors[0].id,
-          sizeId: product.colors[0].sizes[0].id,
-          quantity: 1,
-          productId: product.id,
-          shopId: product.shopId,
-          sizeName: product.colors[0].sizes[0].size,
-          colorName: product.colors[0].color,
-          image: product.images[0],
-          price: product.price,
-          name: product.name,
-          shopName: product.shopInfo.name,
-          discount: product.discount,
-        },
+        payload,
         replace: Boolean(replace),
       })
     );

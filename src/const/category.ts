@@ -1,27 +1,27 @@
 import { ICategory } from "@/types/category";
 
-export const categoryData: Pick<ICategory, "_id" | "name">[] = [
+export const categoryData: Pick<ICategory, "id" | "label">[] = [
   {
-    _id: "6707fdd3452a84dbfc41c669",
-    name: "Pants",
+    id: "6707fdd3452a84dbfc41c669",
+    label: "Pants",
   },
   {
-    _id: "67126b8b38e966f7b0d0b600",
+    id: "67126b8b38e966f7b0d0b600",
 
-    name: "T-shirt",
+    label: "T-shirt",
   },
   {
-    _id: "671f90183ecd9f95aa0a4f95",
-    name: "Casual Shirts",
+    id: "671f90183ecd9f95aa0a4f95",
+    label: "Casual Shirts",
   },
   {
-    _id: "671f8ee03ecd9f95aa0a4f8d",
+    id: "671f8ee03ecd9f95aa0a4f8d",
 
-    name: "Footwear",
+    label: "Footwear",
   },
 
   {
-    _id: "6707fdd3452a84dbfc41c668",
-    name: "Polo T-shirt",
+    id: "6707fdd3452a84dbfc41c668",
+    label: "Polo T-shirt",
   },
 ];

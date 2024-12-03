@@ -1,6 +1,6 @@
 "use client";
 
-import useDebounce from "@/hooks/debounce";
+import useDebounce from "@/hooks/useDebounce";
 import { useGetProductSuggestionQuery } from "@/redux/features/product/product.api";
 import { Search } from "lucide-react";
 import Image from "next/image";
@@ -37,7 +37,7 @@ const ProductSearchBox = () => {
     const searchTerm = form.searchTerm.value;
     if (searchTerm) {
       setIsFocus(false);
-      router.push(`/shop?searchTerm=${searchTerm}`);
+      router.push(`/product?searchTerm=${searchTerm}`);
     } else {
       setIsFocus(false);
     }

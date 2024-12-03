@@ -20,7 +20,7 @@ const navLinks = [
   },
   {
     lebel: "All Products",
-    href: "/shop",
+    href: "/product",
   },
   // ...categoryLinks,
 ];

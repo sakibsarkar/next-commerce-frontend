@@ -10,7 +10,7 @@ const navlinks = [
   },
   {
     lebel: "All Products",
-    href: "/shop",
+    href: "/product",
   },
   {
     lebel: "Contact Us",

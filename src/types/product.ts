@@ -1,4 +1,4 @@
-import { ICategorie } from "./category";
+import { ICategory } from "./category";
 import { IShop } from "./shop";
 
 export interface ISize {
@@ -25,7 +25,7 @@ export interface IProduct {
   discount: number;
   tag: string;
   categoryId: string;
-  categoryInfo: ICategorie;
+  categoryInfo: ICategory;
   isSale: boolean;
   shopId: string;
   isDeleted: boolean;

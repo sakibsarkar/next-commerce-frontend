@@ -16,4 +16,9 @@ export const userProfileLinks = [
     label: "Security",
     Icon: RiLockPasswordLine,
   },
+  {
+    href: "/profile/my-orders",
+    label: "My Orders",
+    Icon: RiLockPasswordLine,
+  },
 ];

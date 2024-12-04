@@ -112,11 +112,11 @@ export default function CheckoutPage() {
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <span>Subtotal</span>
-                      <span>{subTotal.toFixed(2)} ৳</span>
+                      <span>{subTotal.toFixed(2)} $</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Discount</span>
-                      <span>-{totalDiscountPrice.toFixed(2)} ৳ </span>
+                      <span>-{totalDiscountPrice.toFixed(2)} $ </span>
                     </div>
                     <div className="flex justify-between">
                       <span>Shipping</span>

@@ -7,7 +7,6 @@ import { FaPen } from "react-icons/fa";
 
 const Profile = () => {
   const { isLoading, user } = useAppSelector((state) => state.auth);
-  const test = useAppSelector((state) => state.auth);
 
   return (
     <div className="w-full rounded-[10px] px-[25px] py-[20px]">
@@ -28,9 +27,13 @@ const Profile = () => {
             <FaPen />
           </span>
         </Link>
-        <h3 className="text-[20px] font-[600] mt-[20px]">
-          {user?.first_name} {user?.last_name}
-        </h3>
+
+        <div>
+          <h2 className="text-[30px] font-[700]">Hello,</h2>
+          <h3 className="text-[20px] font-[600]">
+            {user?.first_name} {user?.last_name}
+          </h3>
+        </div>
       </div>
       <p className="text-primaryTxt mt-[20px]">
         <span className="font-[600]">Email: </span> {user?.email}

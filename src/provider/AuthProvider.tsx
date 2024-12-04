@@ -1,5 +1,3 @@
-"use client";
-
 import { useGetAuthorQuery } from "@/redux/features/auth/auth.api";
 import { setLoading, setUser } from "@/redux/features/auth/auth.slice";
 import { useAppSelector } from "@/redux/hook";

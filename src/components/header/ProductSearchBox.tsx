@@ -46,7 +46,7 @@ const ProductSearchBox = () => {
   const handleClickProduct = (id: string) => {
     setDebounce("");
     setIsFocus(false);
-    router.push(`/products/${id}`);
+    router.push(`/product/${id}`);
   };
 
   return (

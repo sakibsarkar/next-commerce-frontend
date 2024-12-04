@@ -132,10 +132,12 @@ export function NextPagination({
             return (
               <Button
                 key={pageNumber}
-                variant={currentPage === pageNumber ? "default" : "outline"}
                 size="sm"
+                variant="outline"
                 onClick={() => handlePageChange(pageNumber)}
-                className="w-9"
+                className={`w-9 ${
+                  currentPage === pageNumber ? "bg-main text-white" : ""
+                }`}
                 aria-current={currentPage === pageNumber ? "page" : undefined}
               >
                 {pageNumber}

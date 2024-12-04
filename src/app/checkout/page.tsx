@@ -2,6 +2,7 @@
 import Checkout from "@/components/checkout/Checkout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import Protectedroute from "@/provider/Protectedroute";
 import { useAppSelector } from "@/redux/hook";
 import { getDiscountPrice } from "@/utils/product";
 import { Elements } from "@stripe/react-stripe-js";
@@ -34,7 +35,7 @@ export default function CheckoutPage() {
   }, 0);
 
   return (
-    <>
+    <Protectedroute role="CUSTOMER">
       <div className="min-h-screen mx-auto p-4 w-full center">
         <div className=" w-[80vw]">
           <div onClick={() => router.back()} className="cursor-pointer ">
@@ -139,6 +140,6 @@ export default function CheckoutPage() {
           </div>
         </div>
       </div>
-    </>
+    </Protectedroute>
   );
 }

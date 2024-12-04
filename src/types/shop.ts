@@ -10,3 +10,9 @@ export interface IShop {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface IShopInfo extends IShop {
+  isFollowing: boolean;
+  followerCount: number;
+  totalProduct: number;
+}

@@ -6,6 +6,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { IOrder } from "@/types/order";
+import { getFallbackText } from "@/utils/trimText";
 import { formatDate } from "date-fns";
 import {
   Calendar,
@@ -105,7 +106,9 @@ const OrderDetails: React.FC<IProps> = ({ order, displaySellter }) => {
             <div className="flex items-center gap-4">
               <Avatar>
                 <AvatarImage src={order.shopInfo?.logo || ""} alt="@shadcn" />
-                <AvatarFallback>NC</AvatarFallback>
+                <AvatarFallback>
+                  {getFallbackText(order.shopInfo?.name || "NC", 2)}
+                </AvatarFallback>
               </Avatar>
               <div>
                 <h4 className="font-semibold flex items-center gap-2">

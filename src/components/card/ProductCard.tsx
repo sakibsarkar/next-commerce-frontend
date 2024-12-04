@@ -85,16 +85,19 @@ const ProductCard = ({ product }: { product: IProduct }) => {
           >
             {product.name}
           </Link>
-          <div className="flex items-center justify-between">
-            <p className="font-[700] text-main text-[19px]">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-orange-500 text-lg font-bold">
               ${getDiscountPrice(product.price, product.discount)}
-            </p>
-            {product.discount ? (
-              <p className="font-[700] text-[14px] line-through text-gray-500 ">
-                ${product.price}
-              </p>
-            ) : (
-              ""
+            </span>
+            {product.discount > 0 && (
+              <>
+                <span className="text-sm text-muted-foreground line-through">
+                  ${product.price}
+                </span>
+                <span className="text-sm text-green-600">
+                  {product.discount}% off
+                </span>
+              </>
             )}
           </div>
           <button

@@ -34,7 +34,7 @@ const ProductImageSlide = ({
   };
 
   return (
-    <div>
+    <div className="w-full lg:w-[300px] xl:w-[480px] shrink-0">
       <div className="w-full aspect-square relative flex border-[1px] border-input">
         <Swiper
           onSlideChange={(e) => setCurrentImage(e.realIndex)}
@@ -42,7 +42,7 @@ const ProductImageSlide = ({
           navigation={false} // Disable Swiper's default navigation
           pagination={{ clickable: true }}
           loop={true}
-          className="h-full"
+          className="h-full w-full"
         >
           {images.map((image, index) => (
             <SwiperSlide key={index} className="h-full rounded-[7px]">
@@ -61,7 +61,7 @@ const ProductImageSlide = ({
           <button
             style={{ clipPath: "polygon(0 100%, 14% 0, 98% 0, 82% 100%)" }}
             onClick={handlePrev}
-            className="-full w-[30px] h-[30px] md:w-[50px] md:h-[50px] bg-black center text-yellow-300 rotate-180 relative active:left-[-10px]"
+            className="-full w-[30px] h-[30px]  bg-black center text-yellow-300 rotate-180 relative active:left-[-10px]"
           >
             <ChevronRight />
           </button>
@@ -70,7 +70,7 @@ const ProductImageSlide = ({
           <button
             style={{ clipPath: "polygon(0 100%, 14% 0, 98% 0, 82% 100%)" }}
             onClick={handleNext}
-            className="-full w-[30px] h-[30px] md:w-[50px] md:h-[50px] bg-black center text-yellow-300 relative active:right-[-10px]"
+            className="-full w-[30px] h-[30px]  bg-black center text-yellow-300 relative active:right-[-10px]"
           >
             <ChevronRight />
           </button>

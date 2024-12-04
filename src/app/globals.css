@@ -161,3 +161,12 @@
     transform: rotate(360deg);
   }
 }
+
+input:focus,
+textarea:focus,
+input:hover,
+textarea:hover,
+button:hover,
+button:focus {
+  box-shadow: none !important;
+}

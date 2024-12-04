@@ -4,7 +4,7 @@ import { IProduct } from "@/types/product";
 const uploadApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query<
-      { data: IProduct[]; totalDoc: number },
+      { data: IProduct[]; meta: { totalDoc: number } },
       Record<string, unknown>
     >({
       query: (query) => {

@@ -7,6 +7,7 @@ import OrderDetails from "../shared/OrderDetailDialog";
 import OrderCardSkeleton from "../skeleton/OrderCardSkeleton";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Separator } from "../ui/separator";
+import { getFallbackText } from "@/utils/trimText";
 interface IProps {
   orders: IOrder[];
   isLoading: boolean;
@@ -22,7 +23,9 @@ const MyOrdersTable: React.FC<IProps> = ({ orders, isLoading }) => {
               <h3 className="text-[14px] font-semibold flex items-center gap-[5px]">
                 <Avatar>
                   <AvatarImage src={order.shopInfo?.logo || ""} alt="@shadcn" />
-                  <AvatarFallback>NC</AvatarFallback>
+                  <AvatarFallback>
+                    {getFallbackText(order.shopInfo?.name || "NC", 2)}
+                  </AvatarFallback>
                 </Avatar>
                 {order.shopInfo?.name}
               </h3>

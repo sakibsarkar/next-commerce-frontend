@@ -37,7 +37,7 @@ const ShopHeader: React.FC<IProps> = ({ shopId }) => {
             </div>
             <div className="flex items-center gap-4">
               <ShopFollowerButton
-                following={false}
+                following={data?.data?.isFollowing || false}
                 totalFollower={data?.data?.followerCount || 0}
                 shopId={shopId}
               />

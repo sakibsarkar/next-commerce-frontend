@@ -80,8 +80,8 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-[15px]">
-      <div className="flex items-center justify-center gap-[50px]">
+    <div className="min-h-[80vh] flex flex-col items-center justify-center px-[15px] bg-[white] ">
+      <div className="flex items-center justify-center gap-[50px] bg-[#eeeeee] p-[15px] rounded-[18px]">
         <div className="w-[500px] h-[450px] overflow-hidden rounded-[15px]">
           <Image
             src={"/images/authLady.png"}
@@ -91,7 +91,7 @@ const Login = () => {
             height={350}
           />
         </div>
-        <div className="bg-white max-w-[450px]">
+        <div className="max-w-[450px]">
           <h2 className="font-bold mb-6 text-left text-[35px]">Login</h2>
           <Formik
             initialValues={initialValues}
@@ -134,7 +134,7 @@ const Login = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-fit px-[15px] center gap-[8px] bg-primaryMat text-white py-[12px] hover:bg-green-600 rounded-[5px]"
+                  className="w-fit px-[15px] center gap-[8px] bg-main text-white py-[12px] hover:bg-green-600 rounded-[5px]"
                 >
                   Login <LogIn />
                 </button>
@@ -146,7 +146,7 @@ const Login = () => {
               Don&apos;t have an account?{" "}
               <Link
                 href="/register"
-                className="text-primaryMat hover:underline"
+                className="text-main font-[600] hover:underline"
               >
                 Create Account
               </Link>
@@ -155,7 +155,7 @@ const Login = () => {
               Dont remeber our password?{" "}
               <Link
                 href="/forgot-password"
-                className="text-primaryMat hover:underline"
+                className="text-main font-[600] hover:underline"
               >
                 forgot password
               </Link>

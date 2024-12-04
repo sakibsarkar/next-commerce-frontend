@@ -19,7 +19,7 @@ const ProductOrderActions = ({ product }: { product: IProduct }) => {
 
   const [selectedColor, setSelectedColor] = useState<IColor>(product.colors[0]);
   const [selectedSize, setSelectedSize] = useState<ISize>(
-    product.colors[0].sizes[0]
+    product.colors[0]?.sizes[0]
   );
 
   const router = useRouter();

@@ -1,50 +1,59 @@
 "use client";
 
 import { useRegisterCustomerMutation } from "@/redux/features/auth/auth.api";
+import { setToken, setUser } from "@/redux/features/auth/auth.slice";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 import * as Yup from "yup";
 
 const initialValues = {
-  firstName: "",
-  lastName: "",
+  first_name: "",
+  last_name: "",
   email: "",
   password: "",
   confirmPassword: "",
 };
 type TFormValues = typeof initialValues;
 const validationSchema = Yup.object({
-  firstName: Yup.string().required("* firstName is required"),
-  lastName: Yup.string().required("* lastName is required"),
+  first_name: Yup.string().required("* first name is required"),
+  last_name: Yup.string().required("* last name is required"),
   email: Yup.string()
     .email("* Invalid email address")
     .required("* Email is required"),
-  password: Yup.string().required("* Password is required"),
+  password: Yup.string()
+    .min(8, "* Password must be at least 8 characters long")
+    .required("* Password is required"),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password"), undefined], "* Passwords must match")
     .required("* Confirm password is required"),
 });
 const CreateAccount = () => {
   const [register] = useRegisterCustomerMutation();
+  const dispatch = useDispatch();
 
   const router = useRouter();
 
   const handleRegister = async (values: TFormValues) => {
     const toastId = toast.loading("Please wait...");
     try {
-      const { data } = await register(values);
+      const { data } = await register({
+        ...values,
+        confirmPassword: undefined,
+      });
       if (!data) {
         return toast.error("Something went wrong");
       }
       if (!data.success) {
         return toast.error(data.message);
       }
-      toast.success("Successfully registered", {
-        description: "Now please login",
-      });
-      router.push("/login");
+      dispatch(setUser({ user: data.data?.result }));
+      dispatch(setToken(data.data?.accessToken || ""));
+
+      toast.success("Successfully registered");
+      router.push("/profile");
     } catch (error) {
       console.log(error);
 
@@ -73,11 +82,11 @@ const CreateAccount = () => {
                 </label>
                 <Field
                   type="text"
-                  name="firstName"
+                  name="first_name"
                   className="mt-1 block w-full px-3 py-2 border border-borderColor rounded-md outline-none"
                 />
                 <ErrorMessage
-                  name="firstName"
+                  name="first_name"
                   component="div"
                   className="text-red-500 text-sm"
                 />
@@ -88,11 +97,11 @@ const CreateAccount = () => {
                 </label>
                 <Field
                   type="text"
-                  name="lastName"
+                  name="last_name"
                   className="mt-1 block w-full px-3 py-2 border border-borderColor rounded-md outline-none"
                 />
                 <ErrorMessage
-                  name="lastName"
+                  name="last_name"
                   component="div"
                   className="text-red-500 text-sm"
                 />
@@ -146,7 +155,7 @@ const CreateAccount = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-primaryMat text-white py-[12px]  hover:bg-green-600 rounded-[5px]"
+                className="w-full bg-main text-white py-[12px]  hover:bg-green-600 rounded-[5px]"
               >
                 Submit & Register
               </button>
@@ -155,8 +164,20 @@ const CreateAccount = () => {
         </Formik>
         <div className="mt-6 text-start">
           <p className="text-gray-700">
+            Need a Vendor account?{" "}
+            <Link
+              href="/register/vendor"
+              className="text-main font-[600] hover:underline"
+            >
+              Create Now
+            </Link>
+          </p>
+          <p className="text-gray-700">
             Already have an account?{" "}
-            <Link href="/login" className="text-primaryMat">
+            <Link
+              href="/login"
+              className="text-main font-[600] hover:underline"
+            >
               Login
             </Link>
           </p>

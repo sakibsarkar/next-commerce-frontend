@@ -12,6 +12,7 @@ const shopInfoApi = api.injectEndpoints({
       },
       providesTags: ["shop"],
     }),
+ 
     toggleShopFollowing: builder.mutation<{ data: IShopInfo }, string>({
       query: (shopId) => {
         return {
@@ -19,7 +20,7 @@ const shopInfoApi = api.injectEndpoints({
           method: "PATCH",
         };
       },
-      invalidatesTags: ["shop"],
+      invalidatesTags: ["shop","follow"],
     }),
   }),
 });

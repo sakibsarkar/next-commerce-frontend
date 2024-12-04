@@ -35,6 +35,15 @@ const uploadApi = api.injectEndpoints({
       },
       providesTags: ["product"],
     }),
+    getFollowedShopProducts: builder.query<{ data: IProduct[] }, number>({
+      query: (limit = 10) => {
+        return {
+          url: `/product/shop-follow?limit=${limit}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["product","follow"],
+    }),
     checkIsProductExistByName: builder.mutation<{ data: boolean }, string>({
       query: (name) => {
         return {
@@ -73,4 +82,5 @@ export const {
   useUpdateProductMutation,
   useGetProductSuggestionQuery,
   useCheckIsProductExistByNameMutation,
+  useGetFollowedShopProductsQuery,
 } = uploadApi;

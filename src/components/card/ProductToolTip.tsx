@@ -28,9 +28,16 @@ const ProductToolTip: React.FC<IProps> = ({ product }) => {
       return;
     }
 
+    const colorId = product.colors[0]?.id || "";
+    const sizeId = product.colors[0]?.sizes[0]?.id || "";
+
+    if (!colorId || !sizeId) {
+      toast.error("These are test data, you cant add to cart");
+      return;
+    }
     const payload = {
-      colorId: product.colors[0].id,
-      sizeId: product.colors[0].sizes[0].id,
+      colorId,
+      sizeId,
       quantity: 1,
       productId: product.id,
       shopId: product.shopId,

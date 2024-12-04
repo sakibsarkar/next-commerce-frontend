@@ -25,21 +25,25 @@ export default async function ProductDetails({ params }: any) {
   const data = await res.json();
 
   const product = data.data as IProduct;
+  console.log({ product, params });
 
   return (
     <div className="mx-auto py-8">
       <div className="flex flex-col lg:flex-row items-start justify-start gap-8 bg-white p-[25px] rounded-[15px]">
-        <ProductImageSlide alt={product.name} images={product.images} />
+        <ProductImageSlide
+          alt={product?.name || "Product image"}
+          images={product?.images || []}
+        />
         <div className="w-full">
-          <h1 className="text-3xl font-bold mb-2">{product.name}</h1>
+          <h1 className="text-3xl font-bold mb-2">{product?.name}</h1>
           <span className="text-[14px] mr-2 italic line-through">
-            ${product.price?.toFixed(2)}
+            ${product?.price?.toFixed(2)}
           </span>
           <div className="flex items-center mb-4">
             <span className="text-2xl mr-2 font-bold">
-              ${getDiscountPrice(product.price, product.discount)?.toFixed(2)}
+              ${getDiscountPrice(product?.price, product?.discount)?.toFixed(2)}
             </span>
-            {product.tag && <Badge className="bg-main">{product.tag}</Badge>}
+            {product?.tag && <Badge className="bg-main">{product?.tag}</Badge>}
           </div>
           <div className="flex items-center mb-4">
             <div className="flex mr-2">
@@ -47,7 +51,7 @@ export default async function ProductDetails({ params }: any) {
                 <StarIcon
                   key={i}
                   className={`w-5 h-5 ${
-                    i < Math.floor(product.avgRating)
+                    i < Math.floor(product?.avgRating)
                       ? "text-yellow-400 fill-current"
                       : "text-gray-300"
                   }`}
@@ -55,20 +59,20 @@ export default async function ProductDetails({ params }: any) {
               ))}
             </div>
             <span className="text-gray-600">
-              {product.avgRating?.toFixed(1)}
+              {product?.avgRating?.toFixed(1)}
             </span>
           </div>
           <ProductOrderActions product={product} />{" "}
-          <Link href={`/shop/${product.shopId}`} className="w-full mt-6 flex">
+          <Link href={`/shop/${product?.shopId}`} className="w-full mt-6 flex">
             <Card className="p-4 w-full">
               <div className="flex items-center gap-3">
                 <Avatar>
                   <AvatarImage
-                    src={product.shopInfo?.logo || ""}
+                    src={product?.shopInfo?.logo || ""}
                     alt="Shop Logo"
                   />
                   <AvatarFallback>
-                    {getFallbackText(product.shopInfo?.name || "NC", 2)}
+                    {getFallbackText(product?.shopInfo?.name || "NC", 2)}
                   </AvatarFallback>
                 </Avatar>
                 <div>
@@ -77,7 +81,7 @@ export default async function ProductDetails({ params }: any) {
                     <span>Sold By</span>
                   </div>
                   <h6 className="font-semibold hover:text-primary">
-                    {product.shopInfo?.name}
+                    {product?.shopInfo?.name}
                   </h6>
                 </div>
               </div>
@@ -94,12 +98,12 @@ export default async function ProductDetails({ params }: any) {
         </h1>
         <div
           className={`reset-all`}
-          dangerouslySetInnerHTML={{ __html: product.description }}
+          dangerouslySetInnerHTML={{ __html: product?.description }}
         ></div>
       </div>
 
-      <ProductReviews productId={product.id} />
-      <RelatedPropducts categoryId={product.categoryId} />
+      <ProductReviews productId={product?.id} />
+      <RelatedPropducts categoryId={product?.categoryId} />
     </div>
   );
 }

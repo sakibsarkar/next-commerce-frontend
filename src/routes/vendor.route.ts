@@ -8,7 +8,13 @@ export const vendorLinks: NavItem[] = [
     href: "/dashboard/vendor",
     Icon: GrServices,
     title: "My Shop",
-    children: [],
+    children: [
+      {
+        href: "/dashboard/vendor/update-shop",
+        Icon: GrServices,
+        title: "Update Shop",
+      },
+    ],
   },
   {
     href: "/dashboard/community-post",

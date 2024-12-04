@@ -1,11 +1,27 @@
-import React from 'react';
+"use client";
+import { useAppSelector } from "@/redux/hook";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
-const page = () => {
-    return (
-        <div>
-            
-        </div>
-    );
+import Cookies from "js-cookie";
+
+const DashboardRoot = () => {
+  const router = useRouter();
+  const { user, isLoading, token } = useAppSelector((state) => state.auth);
+  useEffect(() => {
+    if (isLoading) return;
+    if (!user || !token) {
+      router.push("/login");
+      Cookies.set("redirect", "/dashboard");
+      return;
+    }
+    if (user.role === "CUSTOMER") {
+      router.replace("/");
+    } else {
+      router.replace(`/dashboard/${user.role.toLowerCase()}`);
+    }
+  }, [user, router, isLoading, token]);
+  return <div></div>;
 };
 
-export default page;
+export default DashboardRoot;

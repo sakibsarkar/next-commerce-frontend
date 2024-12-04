@@ -1,5 +1,6 @@
 import { IShopInfo } from "@/types/shop";
 import { getFallbackText } from "@/utils/trimText";
+import Link from "next/link";
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
@@ -23,12 +24,14 @@ const MyShopCard: React.FC<Props> = ({ shop }) => {
         </div>
       </div>
       <div className="pt-16 px-6 pb-4 flex items-center justify-between">
-        <Button
-          variant="outline"
-          className="text-yellow-600 hover:text-yellow-700"
-        >
-          Edit Shop
-        </Button>
+        <Link href={"vendor/update-shop"}>
+          <Button
+            variant="outline"
+            className="text-yellow-600 hover:text-yellow-700"
+          >
+            Edit Shop
+          </Button>
+        </Link>
         <div className="bg-white border rounded-full px-4 py-1.5 text-sm">
           1025 Followers
         </div>

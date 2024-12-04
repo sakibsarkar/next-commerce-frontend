@@ -48,8 +48,8 @@ export function DashboardNav({ navLinks }: DashboardNavProps) {
             depth > 0 && ""
           )}
           onClick={(e) => {
+            // e.preventDefault();
             if (hasChildren) {
-              e.preventDefault();
               toggleExpand(item.href);
             }
           }}

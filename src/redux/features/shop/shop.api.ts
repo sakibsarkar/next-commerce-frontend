@@ -47,6 +47,19 @@ const shopInfoApi = api.injectEndpoints({
       },
       invalidatesTags: ["shop"],
     }),
+    updateShop: builder.mutation<
+      { data: IShopInfo },
+      Pick<IShop, "name" | "logo" | "description">
+    >({
+      query: (payload) => {
+        return {
+          url: `/shop/update`,
+          method: "PATCH",
+          body: payload,
+        };
+      },
+      invalidatesTags: ["shop"],
+    }),
   }),
 });
 export const {
@@ -54,4 +67,5 @@ export const {
   useToggleShopFollowingMutation,
   useCreateShopMutation,
   useGetOwnerShopQuery,
+  useUpdateShopMutation,
 } = shopInfoApi;

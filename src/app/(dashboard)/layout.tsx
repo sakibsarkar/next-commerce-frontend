@@ -14,23 +14,9 @@ export interface ISideBarState {
 }
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const [isOpen, setIsOpen] = useState(true);
-  const router = useRouter();
-
+  
   const { user, isLoading, token } = useAppSelector((state) => state.auth);
 
-  useEffect(() => {
-    if (isLoading) return;
-    if (!user || !token) {
-      router.push("/login");
-      Cookies.set("redirect", "/dashboard");
-      return;
-    }
-    if (user.role === "CUSTOMER") {
-      router.replace("/");
-    } else {
-      router.replace(`/dashboard/${user.role.toLowerCase()}`);
-    }
-  }, [user, router, isLoading, token]);
 
   if (isLoading) {
     return <Loader />;

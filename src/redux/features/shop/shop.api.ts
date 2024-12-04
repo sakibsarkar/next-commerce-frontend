@@ -12,6 +12,18 @@ const shopInfoApi = api.injectEndpoints({
       },
       providesTags: ["shop"],
     }),
+    getOwnerShop: builder.query<
+      { data: Omit<IShopInfo, "totalProduct" | "isFollowing"> },
+      undefined
+    >({
+      query: () => {
+        return {
+          url: `/shop/my-shop`,
+          method: "GET",
+        };
+      },
+      providesTags: ["shop"],
+    }),
 
     toggleShopFollowing: builder.mutation<{ data: IShopInfo }, string>({
       query: (shopId) => {
@@ -41,4 +53,5 @@ export const {
   useGetShopInfoByIdQuery,
   useToggleShopFollowingMutation,
   useCreateShopMutation,
+  useGetOwnerShopQuery,
 } = shopInfoApi;

@@ -43,30 +43,32 @@ export function AccountPanel() {
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          {user && user.role === "admin" ? (
-            <Link href="/dashboard" className="cursor-pointer">
+          {user && user.role !== "CUSTOMER" ? (
+            <Link
+              href={`/dashboard/${user.role.toLowerCase()}`}
+              className="cursor-pointer"
+            >
               <DropdownMenuItem>
                 <LayoutDashboard className="mr-2 h-4 w-4" />
                 <span>Dashboard</span>
               </DropdownMenuItem>
             </Link>
           ) : (
-            <>
-              <Link href={"/profile"}>
-                <DropdownMenuItem className="cursor-pointer">
-                  <User className="mr-2 h-4 w-4" />
-                  <span>Dashboard</span>
-                </DropdownMenuItem>
-              </Link>
-              <Link href="/profile/settings" className="cursor-pointer">
-                <DropdownMenuItem>
-                  <Settings className="mr-2 h-4 w-4" />
+            <></>
+          )}{" "}
+          <Link href={"/profile"}>
+            <DropdownMenuItem className="cursor-pointer">
+              <User className="mr-2 h-4 w-4" />
+              <span>Profile</span>
+            </DropdownMenuItem>
+          </Link>
+          <Link href="/profile/settings" className="cursor-pointer">
+            <DropdownMenuItem>
+              <Settings className="mr-2 h-4 w-4" />
 
-                  <span>Settings</span>
-                </DropdownMenuItem>
-              </Link>
-            </>
-          )}
+              <span>Settings</span>
+            </DropdownMenuItem>
+          </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">

@@ -1,7 +1,11 @@
-import StatisticsView from "@/views/StatisticsView";
+import React from 'react';
 
 const page = () => {
-  return <StatisticsView />;
+    return (
+        <div>
+            
+        </div>
+    );
 };
 
 export default page;

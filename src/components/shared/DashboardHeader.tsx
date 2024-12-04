@@ -18,13 +18,13 @@ import { IoMenu } from "react-icons/io5";
 const DashboardHeader: React.FC<ISideBarState> = ({ setIsOpen }) => {
   const { user } = useAppSelector((state) => state.auth);
   return (
-    <div className="w-full flex items-center justify-between px-[20px]  py-[10px] border-b-[1px] border-muted shrink-0">
+    <div className="w-full h-[70px] flex items-center justify-between px-[20px]  py-[10px] border-b shrink-0">
       <Image
-        width={80}
-        height={80}
+        width={60}
+        height={60}
         src="/images/logo.png"
         alt="logo"
-        className="w-[80px] md:flex hidden"
+        className="w-[60px] md:flex hidden"
       />
       <Button
         className="menuBTn flex md:hidden"
@@ -40,8 +40,8 @@ const DashboardHeader: React.FC<ISideBarState> = ({ setIsOpen }) => {
               <AvatarImage src={user?.image || ""} alt="user avatar" />
               <AvatarFallback>
                 <p className="text-muted-foreground uppercase">
-                  {user?.firstName?.slice(0, 1)}
-                  {user?.lastName?.slice(0, 1)}
+                  {user?.first_name?.slice(0, 1)}
+                  {user?.last_name?.slice(0, 1)}
                 </p>
               </AvatarFallback>
             </Avatar>

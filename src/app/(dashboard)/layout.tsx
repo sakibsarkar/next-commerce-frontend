@@ -3,7 +3,7 @@ import DashboardHeader from "@/components/shared/DashboardHeader";
 import Sidebar from "@/components/shared/DashboardSidebar";
 import { useAppSelector } from "@/redux/hook";
 import { useRouter } from "next/navigation";
-import React, { SetStateAction, useState } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 
 import Loader from "@/components/shared/Loader";
 import Cookies from "js-cookie";
@@ -16,32 +16,35 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const [isOpen, setIsOpen] = useState(true);
   const router = useRouter();
 
-  const { user, isLoading } = useAppSelector((state) => state.auth);
+  const { user, isLoading, token } = useAppSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (isLoading) return;
+    if (!user || !token) {
+      router.push("/login");
+      Cookies.set("redirect", "/dashboard");
+      return;
+    }
+    if (user.role === "CUSTOMER") {
+      router.replace("/");
+    } else {
+      router.replace(`/dashboard/${user.role.toLowerCase()}`);
+    }
+  }, [user, router, isLoading, token]);
 
   if (isLoading) {
     return <Loader />;
   }
-
-  if (!user) {
-    router.push("/login");
-    Cookies.set("redirect", "/dashboard");
-    return <></>;
-  }
-  if (user.role !== "admin") {
-    router.push("/");
-    return <></>;
-  }
-
   return (
-      <div className="w-full h-screen flex items-start justify-start pb-[30px]">
+    <div className="w-full h-dvh flex flex-col items-start justify-start">
+      <DashboardHeader isOpen={isOpen} setIsOpen={setIsOpen} />
+      <div className="w-full h-[calc(100%-70px)] flex items-start justify-start">
         <Sidebar isOpen={isOpen} setIsopen={setIsOpen} />
-        <div className="w-full h-full flex-col flex">
-          <DashboardHeader isOpen={isOpen} setIsOpen={setIsOpen} />
-          <div className="h-full overflow-auto smoothBar p-[50px]">
-            {children}
-          </div>
+        <div className="h-full w-full overflow-auto smoothBar p-[50px] bg-[#f3f3f3]">
+          {children}
         </div>
       </div>
+    </div>
   );
 };
 

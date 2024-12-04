@@ -1,12 +1,10 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { logout } from "@/redux/features/auth/auth.slice";
-import { useAppDispatch } from "@/redux/hook";
-import Cookies from "js-cookie";
+import { useAppSelector } from "@/redux/hook";
+import { adminLinks } from "@/routes/admin.route";
+import { vendorLinks } from "@/routes/vendor.route";
 import { ChevronLeft } from "lucide-react";
-import Link from "next/link";
 import { SetStateAction, useEffect } from "react";
-import { adminLinks } from "../../routes";
 import { Button } from "../ui/button";
 import { DashboardNav } from "./DashboardNav";
 
@@ -21,9 +19,8 @@ export default function Sidebar({
   isOpen,
   setIsopen,
 }: SidebarProps) {
-  const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.auth);
 
-  // outside click hide the drawer
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       // event target
@@ -61,10 +58,6 @@ export default function Sidebar({
     rotate: isOpen ? "0deg" : "180deg",
   };
 
-  const hanldleLogout = () => {
-    Cookies.remove("refreshToken");
-    dispatch(logout(undefined));
-  };
   const handleCloseBar = () => {
     const width = window.screen.width;
 
@@ -78,21 +71,15 @@ export default function Sidebar({
         display: "flex",
       }}
       className={cn(
-        `md:relative fixed top-0 left-0  h-screen border-r bg-card transition-[width] duration-500 md:block
-        w-72 shrink-0 overflow-hidden z-[9999] sidebar flex flex-col gap-[20px] justify-between pb-[20px]`,
+        `md:relative fixed top-0 left-0  h-full border-r bg-card transition-[width] duration-500 md:block
+        w-72 shrink-0 overflow-hidden z-[9999] sidebar flex flex-col gap-[20px] justify-between pb-[20px] bg-white md:bg-transparent`,
         className
       )}
     >
       <div className="w-full">
-        <div className="hidden p-5 pt-10 lg:block">
-          <Link href={"/"}>
-            <h3 className="font-[600] text-[20px]">ON THE GO</h3>
-          </Link>
-        </div>
-
         <ChevronLeft
           className={cn(
-            "fixed z-20 top-[40%] cursor-pointer rounded-full border bg-background text-3xl text-foreground md:flex hidden"
+            "fixed z-20 top-[40%] cursor-pointer rounded-full border bg-background text-3xl text-foreground md:flex hidden bg-white"
           )}
           style={{
             transition: "0.3s",
@@ -104,16 +91,16 @@ export default function Sidebar({
         <div className="space-y-4 py-4">
           <div className="px-3 py-2">
             <div className="mt-3 space-y-1" onClick={handleCloseBar}>
-              <DashboardNav items={adminLinks} />
+              <DashboardNav
+                navLinks={
+                  user ? (user.role == "ADMIN" ? adminLinks : vendorLinks) : []
+                }
+              />
             </div>
           </div>
         </div>
       </div>
-      <Button
-        onClick={hanldleLogout}
-        className="w-[90%] mx-auto"
-        variant={"destructive"}
-      >
+      <Button className="w-[90%] mx-auto" variant={"destructive"}>
         Logout
       </Button>
     </aside>

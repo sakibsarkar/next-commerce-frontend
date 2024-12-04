@@ -10,12 +10,12 @@ const ShopDetailsView = ({ shopId }: { shopId: string }) => {
   const { data, isFetching } = useGetProductsQuery(query);
 
   return (
-    <div className="w-full flex">
+    <div className="w-full flex min-h-screen">
       <div className="w-full mt-[30px] bg-white px-4 py-6 rounded-[15px]">
         <div className="grid gap-6">
           <div className="flex justify-between items-start">
             <div className="flex-1 max-w-3xl">
-              <ShopHeader shopId={shopId}  />
+              <ShopHeader shopId={shopId} />
             </div>
             <div className="w-72"></div>
           </div>

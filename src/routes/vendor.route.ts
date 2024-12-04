@@ -1,18 +1,14 @@
-import { IconType } from "react-icons";
+import { NavItem } from "@/types/dashboardNav";
 import { BsFileEarmarkPost } from "react-icons/bs";
 import { CiUser, CiViewList } from "react-icons/ci";
 import { GrServices } from "react-icons/gr";
-export interface NavItem {
-  href: string;
-  title: string;
-  Icon: IconType;
-}
 
-export const adminLinks: NavItem[] = [
+export const vendorLinks: NavItem[] = [
   {
-    href: "/dashboard",
+    href: "/dashboard/vendor",
     Icon: GrServices,
-    title: "Dashboard",
+    title: "My Shop",
+    children: [],
   },
   {
     href: "/dashboard/community-post",

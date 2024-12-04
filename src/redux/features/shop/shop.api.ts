@@ -1,5 +1,5 @@
 import { api } from "@/redux/api/appSlice";
-import { IShopInfo } from "@/types/shop";
+import { IShop, IShopInfo } from "@/types/shop";
 
 const shopInfoApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -12,7 +12,7 @@ const shopInfoApi = api.injectEndpoints({
       },
       providesTags: ["shop"],
     }),
- 
+
     toggleShopFollowing: builder.mutation<{ data: IShopInfo }, string>({
       query: (shopId) => {
         return {
@@ -20,9 +20,25 @@ const shopInfoApi = api.injectEndpoints({
           method: "PATCH",
         };
       },
-      invalidatesTags: ["shop","follow"],
+      invalidatesTags: ["shop", "follow"],
+    }),
+    createShop: builder.mutation<
+      { data: IShopInfo },
+      Pick<IShop, "name" | "logo" | "description">
+    >({
+      query: (payload) => {
+        return {
+          url: `/shop/create`,
+          method: "POST",
+          body: payload,
+        };
+      },
+      invalidatesTags: ["shop"],
     }),
   }),
 });
-export const { useGetShopInfoByIdQuery, useToggleShopFollowingMutation } =
-  shopInfoApi;
+export const {
+  useGetShopInfoByIdQuery,
+  useToggleShopFollowingMutation,
+  useCreateShopMutation,
+} = shopInfoApi;

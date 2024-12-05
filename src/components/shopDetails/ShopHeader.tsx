@@ -1,4 +1,5 @@
 import { useGetShopInfoByIdQuery } from "@/redux/features/shop/shop.api";
+import { useAppSelector } from "@/redux/hook";
 import { getFallbackText } from "@/utils/trimText";
 import ShopHeaderSkeleton from "../skeleton/ShopHeaderSkeleton";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -11,6 +12,9 @@ interface IProps {
 
 const ShopHeader: React.FC<IProps> = ({ shopId }) => {
   const { data, isLoading } = useGetShopInfoByIdQuery(shopId);
+
+  const { user } = useAppSelector((state) => state.auth);
+
   return (
     <>
       {isLoading ? (
@@ -35,13 +39,17 @@ const ShopHeader: React.FC<IProps> = ({ shopId }) => {
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-4">
-              <ShopFollowerButton
-                following={data?.data?.isFollowing || false}
-                totalFollower={data?.data?.followerCount || 0}
-                shopId={shopId}
-              />
-            </div>
+            {user?.role == "CUSTOMER" ? (
+              <div className="flex items-center gap-4">
+                <ShopFollowerButton
+                  following={data?.data?.isFollowing || false}
+                  totalFollower={data?.data?.followerCount || 0}
+                  shopId={shopId}
+                />
+              </div>
+            ) : (
+              ""
+            )}
           </CardContent>
         </Card>
       )}

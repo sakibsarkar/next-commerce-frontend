@@ -33,7 +33,7 @@ const MyShopCard: React.FC<Props> = ({ shop }) => {
           </Button>
         </Link>
         <div className="bg-white border rounded-full px-4 py-1.5 text-sm">
-          1025 Followers
+          {shop?.followerCount} Followers
         </div>
       </div>
     </div>

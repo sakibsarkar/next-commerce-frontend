@@ -1,13 +1,13 @@
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { IOrder } from "@/types/order";
+import { getFallbackText } from "@/utils/trimText";
 import Image from "next/image";
 import OrderDetails from "../shared/OrderDetailDialog";
 import OrderCardSkeleton from "../skeleton/OrderCardSkeleton";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Separator } from "../ui/separator";
-import { getFallbackText } from "@/utils/trimText";
+import AddReview from "./AddReview";
 interface IProps {
   orders: IOrder[];
   isLoading: boolean;
@@ -57,11 +57,7 @@ const MyOrdersTable: React.FC<IProps> = ({ orders, isLoading }) => {
               </div>
               <div className="flex flex-col gap-2">
                 <OrderDetails order={order} displaySellter={true} />
-                {!order.hasReviewGiven && (
-                  <Button variant="outline" size="sm">
-                    Add Review
-                  </Button>
-                )}
+                {!order.hasReviewGiven && <AddReview orderId={order.id} />}
               </div>
             </div>
           </CardContent>

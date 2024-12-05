@@ -43,7 +43,7 @@ const orderApi = api.injectEndpoints({
           method: "GET",
         };
       },
-      providesTags: ["order"],
+      providesTags: ["order", "review"],
     }),
     getVendorsOrders: builder.query<
       { data: IOrder[]; meta: { totalDoc: number } },

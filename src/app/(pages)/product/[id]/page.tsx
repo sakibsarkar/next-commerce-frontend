@@ -15,7 +15,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: {
     default: "PRODUCT DETAILS",
-    template: "%s | FEROX - Premium Clothing for Every Occasion",
+    template: "%s | Next Ecommerce - Premium Clothing for Every Occasion",
   },
 };
 export default async function ProductDetails({ params }: any) {

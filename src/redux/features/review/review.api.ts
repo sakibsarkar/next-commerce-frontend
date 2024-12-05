@@ -16,6 +16,32 @@ const reviewApi = api.injectEndpoints({
       },
       invalidatesTags: ["review"],
     }),
+    getProductReviewsById: builder.query<
+      { data: IReview[]; meta: { totalDoc: number } },
+      {
+        productId: string;
+        query: Record<string, unknown>;
+      }
+    >({
+      query: ({ productId, query }) => {
+        const entries = Object.entries(query);
+        let queryString = "";
+        entries.forEach(([key, value], index) => {
+          if (value) {
+            if (index === 0) {
+              queryString += `${key}=${value}`;
+            } else {
+              queryString += `&${key}=${value}`;
+            }
+          }
+        });
+        return {
+          url: `/review/get/${productId}?${queryString}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["review"],
+    }),
     getOwnerShopReviews: builder.query<
       { data: IReview[]; meta: { totalDoc: number } },
       Record<string, unknown>
@@ -58,4 +84,5 @@ export const {
   useCreateReviewMutation,
   useGetOwnerShopReviewsQuery,
   useCreateReviewResponseMutation,
+  useGetProductReviewsByIdQuery,
 } = reviewApi;

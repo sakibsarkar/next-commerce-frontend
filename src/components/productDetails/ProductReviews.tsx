@@ -1,16 +1,18 @@
 "use client";
 // import { useGetReviewsByProductIDQuery } from "@/redux/features/review/review.api";
 // import { countAmmount } from "@/utils/countAmmount";
+import { useGetProductReviewsByIdQuery } from "@/redux/features/review/review.api";
 import { MessageSquare } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
+import ProductReviewCard from "./ProductReviewCard";
 const ProductReviews = ({ productId }: { productId: string }) => {
-  // const { data } = useGetReviewsByProductIDQuery(productId);
-  const data = { data: [] };
+  const { data } = useGetProductReviewsByIdQuery({
+    productId,
+    query: { limit: 10 },
+  });
   const reviews = data?.data || [];
 
-
-  // const totalReviews = countAmmount(reviews.length);
-  const totalReviews =0
+  const totalReviews = reviews.length;
 
   return (
     <section className="mt-[40px] bg-white p-[15px]">
@@ -31,7 +33,11 @@ const ProductReviews = ({ productId }: { productId: string }) => {
           </CardContent>
         </Card>
       ) : (
-        ""
+        <div className="flex flex-col gap-[15px] w-full">
+          {reviews.map((review) => (
+            <ProductReviewCard key={review.id} review={review} />
+          ))}
+        </div>
       )}
     </section>
   );

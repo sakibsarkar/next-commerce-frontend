@@ -26,6 +26,29 @@ const uploadApi = api.injectEndpoints({
       },
       providesTags: ["product"],
     }),
+    getUsersShopProdcuts: builder.query<
+      { data: IProduct[]; meta: { totalDoc: number } },
+      Record<string, unknown>
+    >({
+      query: (query) => {
+        const entries = Object.entries(query);
+        let queryString = "";
+        entries.forEach(([key, value], index) => {
+          if (value) {
+            if (index === 0) {
+              queryString += `${key}=${value}`;
+            } else {
+              queryString += `&${key}=${value}`;
+            }
+          }
+        });
+        return {
+          url: `/product/my-shop?${queryString}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["product"],
+    }),
     getProductById: builder.query<{ data: IProduct }, string>({
       query: (id) => {
         return {
@@ -84,6 +107,13 @@ const uploadApi = api.injectEndpoints({
       }),
       invalidatesTags: ["product"],
     }),
+    duplicateProduct: builder.mutation<{ data: IProduct }, String>({
+      query: (productId) => ({
+        url: `/product/duplicate/${productId}`,
+        method: "POST",
+      }),
+      invalidatesTags: ["product"],
+    }),
   }),
 });
 export const {
@@ -94,4 +124,6 @@ export const {
   useCheckIsProductExistByNameMutation,
   useGetFollowedShopProductsQuery,
   useCreateProductMutation,
+  useGetUsersShopProdcutsQuery,
+  useDuplicateProductMutation,
 } = uploadApi;

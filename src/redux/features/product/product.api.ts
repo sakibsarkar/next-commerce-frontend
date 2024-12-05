@@ -42,7 +42,7 @@ const uploadApi = api.injectEndpoints({
           method: "GET",
         };
       },
-      providesTags: ["product","follow"],
+      providesTags: ["product", "follow"],
     }),
     checkIsProductExistByName: builder.mutation<{ data: boolean }, string>({
       query: (name) => {
@@ -62,7 +62,17 @@ const uploadApi = api.injectEndpoints({
       },
       providesTags: ["product"],
     }),
-
+    createProduct: builder.mutation<
+      { data: IProduct },
+      Record<string, unknown>
+    >({
+      query: (payload) => ({
+        url: `/product/create`,
+        method: "POST",
+        body: payload,
+      }),
+      invalidatesTags: ["product"],
+    }),
     updateProduct: builder.mutation<
       { data: IProduct },
       { payload: Partial<IProduct>; id: string }
@@ -83,4 +93,5 @@ export const {
   useGetProductSuggestionQuery,
   useCheckIsProductExistByNameMutation,
   useGetFollowedShopProductsQuery,
+  useCreateProductMutation,
 } = uploadApi;

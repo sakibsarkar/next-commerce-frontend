@@ -12,6 +12,17 @@ const uploadApi = api.injectEndpoints({
       },
       invalidatesTags: ["upload"],
     }),
+    uploadMultipleFile: builder.mutation<{ data: string[] }, FormData>({
+      query: (payload) => {
+        return {
+          url: `/upload/multiple`,
+          method: "POST",
+          body: payload,
+        };
+      },
+      invalidatesTags: ["upload"],
+    }),
   }),
 });
-export const { useUploadSingleFileMutation } = uploadApi;
+export const { useUploadSingleFileMutation, useUploadMultipleFileMutation } =
+  uploadApi;

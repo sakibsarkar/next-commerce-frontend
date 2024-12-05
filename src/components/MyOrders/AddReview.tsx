@@ -50,7 +50,7 @@ const AddReview = ({ orderId }: { orderId: string }) => {
     try {
       const res = await addReview(payload);
       const error = res.error as any;
-      if (!error) {
+      if (error) {
         toast.error("Something went wrong");
         return;
       }

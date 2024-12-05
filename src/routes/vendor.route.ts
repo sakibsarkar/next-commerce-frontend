@@ -1,8 +1,8 @@
 import { NavItem } from "@/types/dashboardNav";
 import { BsFileEarmarkPost } from "react-icons/bs";
-import { CiUser, CiViewList } from "react-icons/ci";
+import { CiViewList } from "react-icons/ci";
 import { GrServices } from "react-icons/gr";
-
+import { MdOutlineReviews } from "react-icons/md";
 export const vendorLinks: NavItem[] = [
   {
     href: "/dashboard/vendor",
@@ -17,9 +17,9 @@ export const vendorLinks: NavItem[] = [
     ],
   },
   {
-    href: "/dashboard/community-post",
-    Icon: CiUser,
-    title: "Community Posts",
+    href: "/dashboard/vendor/manage-reviews",
+    Icon: MdOutlineReviews,
+    title: "Manage Reviews",
   },
   {
     href: "/dashboard/manage-user",

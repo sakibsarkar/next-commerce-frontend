@@ -1,6 +1,7 @@
 import {
   Dialog,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -26,9 +27,14 @@ import { Separator } from "../ui/separator";
 interface IProps {
   order: IOrder;
   displaySellter?: boolean;
+  footerContent?: React.ReactNode;
 }
 
-const OrderDetails: React.FC<IProps> = ({ order, displaySellter }) => {
+const OrderDetails: React.FC<IProps> = ({
+  order,
+  displaySellter,
+  footerContent,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -124,6 +130,8 @@ const OrderDetails: React.FC<IProps> = ({ order, displaySellter }) => {
             ""
           )}
         </div>
+
+        {footerContent ? <DialogFooter>{footerContent}</DialogFooter> : ""}
       </DialogContent>
     </Dialog>
   );

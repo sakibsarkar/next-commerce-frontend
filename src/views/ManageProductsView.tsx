@@ -7,7 +7,10 @@ import { useState } from "react";
 const ManageProductsView = () => {
   const [page, setPage] = useState(1);
 
-  const { data } = useGetUsersShopProdcutsQuery({ page, limit: 10 });
+  const { data, isFetching } = useGetUsersShopProdcutsQuery({
+    page,
+    limit: 10,
+  });
 
   return (
     <div>
@@ -16,7 +19,7 @@ const ManageProductsView = () => {
         description="Create a new product and add it to your store"
         className="mb-[20px]"
       />
-      <ProductTable products={data?.data || []} />
+      <ProductTable products={data?.data || []} isLoading={isFetching} />
       <NextPagination
         totalDocs={data?.meta.totalDoc || 0}
         limit={10}

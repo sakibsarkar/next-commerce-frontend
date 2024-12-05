@@ -10,7 +10,8 @@ import {
 import { IProduct } from "@/types/product";
 import { productValidation } from "@/validation/productValidation";
 import { Form, Formik } from "formik";
-import { Loader } from "lucide-react";
+import { ArrowLeft, Loader } from "lucide-react";
+import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
@@ -82,6 +83,14 @@ const UpdateProductView = () => {
         description="Updating your existing product"
         className="mb-[20px]"
       />
+
+      <Link
+        href="/dashboard/vendor/manage-products"
+        className="flex items-center mb-[20px] gap-[8px] text-[18px]"
+      >
+        <ArrowLeft className="h-6 w-6" /> Go Back
+      </Link>
+
       <Formik
         initialValues={initialValues}
         validationSchema={productValidation}

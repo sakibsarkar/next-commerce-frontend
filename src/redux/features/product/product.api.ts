@@ -107,6 +107,13 @@ const uploadApi = api.injectEndpoints({
       }),
       invalidatesTags: ["product"],
     }),
+    deleteProductById: builder.mutation<{ data: IProduct }, String>({
+      query: (id) => ({
+        url: `/product/delete/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["product"],
+    }),
     duplicateProduct: builder.mutation<{ data: IProduct }, String>({
       query: (productId) => ({
         url: `/product/duplicate/${productId}`,
@@ -126,4 +133,5 @@ export const {
   useCreateProductMutation,
   useGetUsersShopProdcutsQuery,
   useDuplicateProductMutation,
+  useDeleteProductByIdMutation
 } = uploadApi;

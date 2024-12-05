@@ -13,7 +13,19 @@ const orderApi = api.injectEndpoints({
       },
       invalidatesTags: ["order"],
     }),
-    getUserOrders: builder.query<{data: IOrder[]; meta:{totalDoc: number}},Record<string, unknown>>({
+    moveOrderForShipment: builder.mutation({
+      query: (orderId: string) => {
+        return {
+          url: `/order/move-to-shipment/${orderId}`,
+          method: "PUT",
+        };
+      },
+      invalidatesTags: ["order"],
+    }),
+    getUserOrders: builder.query<
+      { data: IOrder[]; meta: { totalDoc: number } },
+      Record<string, unknown>
+    >({
       query: (query) => {
         const entries = Object.entries(query);
         let queryString = "";
@@ -33,6 +45,34 @@ const orderApi = api.injectEndpoints({
       },
       providesTags: ["order"],
     }),
+    getVendorsOrders: builder.query<
+      { data: IOrder[]; meta: { totalDoc: number } },
+      Record<string, unknown>
+    >({
+      query: (query) => {
+        const entries = Object.entries(query);
+        let queryString = "";
+        entries.forEach(([key, value], index) => {
+          if (value) {
+            if (index === 0) {
+              queryString += `${key}=${value}`;
+            } else {
+              queryString += `&${key}=${value}`;
+            }
+          }
+        });
+        return {
+          url: `/order/get-vendor?${queryString}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["order"],
+    }),
   }),
 });
-export const { useCreateOrderMutation, useGetUserOrdersQuery } = orderApi;
+export const {
+  useCreateOrderMutation,
+  useGetUserOrdersQuery,
+  useGetVendorsOrdersQuery,
+  useMoveOrderForShipmentMutation,
+} = orderApi;

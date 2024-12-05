@@ -1,6 +1,8 @@
 import { IShippingAddress } from "./ShippingAdress";
 import { IShop } from "./shop";
 
+export type TOrderStatus = "PENDING" | "ON_SHIPMENT" | "SHIPPED";
+
 export interface IOrder {
   id: string;
   productId: string;
@@ -14,7 +16,7 @@ export interface IOrder {
   shippingId: string;
   shippingInfo?: IShippingAddress;
   hasReviewGiven: boolean;
-  status: string;
+  status: TOrderStatus;
   createdAt: string;
   updatedAt: string;
   productInfo: {

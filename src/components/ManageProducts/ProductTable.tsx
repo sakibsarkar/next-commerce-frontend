@@ -11,15 +11,18 @@ import { trimText } from "@/utils/trimText";
 import Link from "next/link";
 import { MdEdit } from "react-icons/md";
 import { Card, CardContent } from "../ui/card";
+import NoTableDataFound from "../uiElements/NoTableDataFound";
 import DuplicateProduct from "./DuplicateProduct";
+import ProductDelete from "./ProductDelete";
 
 interface IProps {
   products: IProduct[];
+  isLoading: boolean;
 }
 
-const ProductTable: React.FC<IProps> = ({ products }) => {
+const ProductTable: React.FC<IProps> = ({ products, isLoading }) => {
   return (
-    <Card>
+    <Card className="relative">
       <CardContent>
         <Table>
           <TableHeader>
@@ -48,11 +51,19 @@ const ProductTable: React.FC<IProps> = ({ products }) => {
                     >
                       <MdEdit />
                     </Link>
+                    <ProductDelete
+                      productId={product.id}
+                      productName={product.name}
+                    />
                     <DuplicateProduct productId={product.id} />
                   </div>
                 </TableCell>
               </TableRow>
             ))}
+
+            {!isLoading && products.length === 0 && (
+              <NoTableDataFound span={5} />
+            )}
           </TableBody>
         </Table>
       </CardContent>

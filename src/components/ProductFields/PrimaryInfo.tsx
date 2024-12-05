@@ -70,7 +70,6 @@ const PrimaryInfo: React.FC<IProps> = ({
           onChange={onCategoryChange}
           defaultValue={defaultCategory}
         />
-
         <div className="flex items-start gap-4">
           <div className="w-full">
             <Label htmlFor="price">Price</Label>
@@ -95,3 +94,4 @@ const PrimaryInfo: React.FC<IProps> = ({
 };
 
 export default PrimaryInfo;
+

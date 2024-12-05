@@ -43,7 +43,7 @@ const ProductTable: React.FC<IProps> = ({ products }) => {
                 <TableCell className="text-right">
                   <div className="flex items-center justify-end gap-[10px]">
                     <Link
-                      href={`/manage-products/edit/${product.id}`}
+                      href={`update-product/${product.id}`}
                       className="w-[40px] h-[40px] bg-[#16d120] text-white rounded-full center hover:bg-[#1a7e1f]"
                     >
                       <MdEdit />

@@ -29,3 +29,10 @@ export const productValidation = Yup.object({
     )
     .min(1, "At least one color is required"),
 });
+export const productprimaryInfoValidation = Yup.object({
+  name: Yup.string().required("Product name is required"),
+  price: Yup.number()
+    .required("Price is required")
+    .min(1, "Price must be positive"),
+  tag: Yup.string().optional(),
+});

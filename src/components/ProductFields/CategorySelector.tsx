@@ -65,7 +65,7 @@ const CategorySelector: React.FC<IProps> = ({ onChange, defaultValue }) => {
   };
 
   return (
-    <div className="w-full" ref={containerRef}>
+    <div className="w-full mt-[30px]" ref={containerRef}>
       <Label>Category</Label>
       <div className="rounded-[8px] px-3 py-[12px] border-[1px] border-input w-full flex items-center justify-start gap-[10px]">
         {selectedCategory ? (

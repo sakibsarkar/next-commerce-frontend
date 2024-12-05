@@ -102,7 +102,7 @@ const uploadApi = api.injectEndpoints({
     >({
       query: ({ payload, id }) => ({
         url: `/product/update/${id}`,
-        method: "PUT",
+        method: "PATCH",
         body: payload,
       }),
       invalidatesTags: ["product"],

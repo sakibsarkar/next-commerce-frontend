@@ -10,9 +10,9 @@ export const adminLinks: NavItem[] = [
     title: "Dashboard",
   },
   {
-    href: "/dashboard/community-post",
+    href: "/dashboard/admin/transactions",
     Icon: CiUser,
-    title: "Community Posts",
+    title: "transactions",
   },
   {
     href: "/dashboard/manage-user",

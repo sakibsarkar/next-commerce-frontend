@@ -5,7 +5,7 @@ import { GrServices } from "react-icons/gr";
 
 export const adminLinks: NavItem[] = [
   {
-    href: "/dashboard",
+    href: "/dashboard/admin",
     Icon: GrServices,
     title: "Dashboard",
   },

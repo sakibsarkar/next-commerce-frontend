@@ -66,6 +66,7 @@ export const api = createApi({
     "shippingAddress",
     "order",
     "category",
+    "admin",
     "shop",
     "follow",
     "upload",

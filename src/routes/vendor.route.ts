@@ -1,6 +1,4 @@
 import { NavItem } from "@/types/dashboardNav";
-import { BsFileEarmarkPost } from "react-icons/bs";
-import { CiViewList } from "react-icons/ci";
 import { FaRegRectangleList } from "react-icons/fa6";
 import { GrServices } from "react-icons/gr";
 import { LiaShippingFastSolid } from "react-icons/lia";
@@ -32,16 +30,5 @@ export const vendorLinks: NavItem[] = [
     href: "/dashboard/vendor/manage-reviews",
     Icon: MdOutlineReviews,
     title: "Manage Reviews",
-  },
-  {
-    href: "/dashboard/manage-user",
-    Icon: CiViewList,
-
-    title: "Manage Users",
-  },
-  {
-    href: "/dashboard/manage-categories",
-    Icon: BsFileEarmarkPost,
-    title: "Manage Categories",
   },
 ];

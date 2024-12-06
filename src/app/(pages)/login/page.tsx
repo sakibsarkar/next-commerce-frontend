@@ -80,9 +80,9 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-[80vh] flex flex-col items-center justify-center px-[15px] bg-[white] ">
+    <div className="min-h-[80vh] flex flex-col items-center justify-center px-[15px] bg-[white] py-[50px]">
       <div className="flex items-center justify-center gap-[50px] bg-[#eeeeee] p-[15px] rounded-[18px]">
-        <div className="w-[500px] h-[450px] overflow-hidden rounded-[15px]">
+        <div className="w-[500px] h-[450px] overflow-hidden rounded-[15px] hidden lg:flex">
           <Image
             src={"/images/authLady.png"}
             alt="auth"
@@ -134,7 +134,7 @@ const Login = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-fit px-[15px] center gap-[8px] bg-main text-white py-[12px] hover:bg-green-600 rounded-[5px]"
+                  className="w-full px-[15px] center gap-[8px] bg-main text-white py-[12px] hover:bg-main/80 rounded-[5px]"
                 >
                   Login <LogIn />
                 </button>

@@ -5,7 +5,6 @@ import useDebounce from "@/hooks/useDebounce";
 import useSetSearchParams from "@/hooks/useSetParams";
 import { useGetAllCategoriesQuery } from "@/redux/features/category/category.api";
 import { ICategory } from "@/types/category";
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 const Cateogory = () => {
@@ -107,12 +106,6 @@ const Cateogory = () => {
                         className="rounded-[8px] cursor-pointer px-4 py-4 hover:bg-primary-foreground flex items-center justify-start gap-[15px]"
                         onClick={() => handleAddCategory(category)}
                       >
-                        <Image
-                          width={30}
-                          height={30}
-                          src={"/images/logo.jpg"}
-                          alt={`${category.label} thumbnail`}
-                        />{" "}
                         <p>{category.label}</p>
                       </div>
                     )

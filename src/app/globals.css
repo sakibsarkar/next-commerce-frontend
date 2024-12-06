@@ -8,7 +8,7 @@
   }
 
   .layout_container {
-    @apply max-w-[1586px] mx-auto px-[10px] sm:px-[20px] md:px-[80px];
+    @apply max-w-[1586px] mx-auto px-[10px] sm:px-[20px] md:px-[30px] lg:px-[50] xl:px-[80px];
   }
 }
 

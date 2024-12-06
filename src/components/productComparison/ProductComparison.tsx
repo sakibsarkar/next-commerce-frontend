@@ -70,7 +70,6 @@ const ProductComparison = () => {
             "No discount"
           ),
       },
-      { label: "Description", key: "description" },
       { label: "Category", key: "categoryInfo.label" },
       { label: "Shop", key: "shopInfo.name" },
       {
@@ -100,12 +99,6 @@ const ProductComparison = () => {
               ))}
           </div>
         ),
-      },
-      {
-        label: "Stock",
-        key: "stock",
-        format: (value: number) =>
-          value > 0 ? `${value} in stock` : "Out of stock",
       },
     ];
 

@@ -122,7 +122,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="mx-auto py-10">
       <Card className="max-w-2xl mx-auto">
         <CardHeader>
           <CardTitle>Register for Vendor</CardTitle>

@@ -3,13 +3,13 @@ import Image from "next/image";
 
 const Banner = () => {
   return (
-    <div className="min-w-full h-[60vh]  flex items-start justify-start gap-[20px] mt-[20px] bg-white p-[15px]">
-      <div className="relative overflow-hidden bg-[#f6f6f6] w-full h-full">
+    <div className="w-full min-h-[60vh]  flex items-start justify-start flex-col md:flex-row gap-[20px] mt-[20px] bg-white p-[15px]">
+      <div className="relative overflow-hidden bg-[#f6f6f6] w-full h-[420px]">
         <div className="relative mx-auto w-full px-4 py-[50px] sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
             <div className="relative z-10 md:text-left">
               <div className="relative">
-                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+                <h2 className="text-xl font-bold tracking-tight sm:text-2xl lg:text-3xl">
                   Active Crystal Color
                   <br />
                   4k UHD Picture Quality
@@ -31,7 +31,7 @@ const Banner = () => {
               </div>
             </div>
 
-            <div className="relative lg:mt-0">
+            <div className="relative hidden lg:flex">
               <div className="relative">
                 <Image
                   height={500}
@@ -54,7 +54,7 @@ const Banner = () => {
           </div>
         </div>
       </div>
-      <div className="w-[380px] h-full flex flex-col gap-[20px] shrink-0">
+      <div className="w-full md:w-[30%] h-[420px]  flex flex-col gap-[20px] shrink-0">
         <div
           className="w-full h-full bg-cover bg-no-repeat pl-[15px] flex items-center"
           style={{ backgroundImage: `url("/images/banner/banner1.jpg")` }}

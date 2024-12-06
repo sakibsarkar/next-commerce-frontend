@@ -33,7 +33,7 @@ const RecoverPassword = () => {
           "Content-type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify({ password: values.password }),
+        body: JSON.stringify({ password: values.password, token: token }),
       });
 
       if (res.status === 401) {
@@ -45,7 +45,7 @@ const RecoverPassword = () => {
       if (res.status === 404) {
         toast.dismiss(toastId);
 
-        return toast.error("No account found on this email");
+        return toast.error("Invalid token or session is expire try again");
       }
 
       if (!res.ok) {
@@ -99,7 +99,7 @@ const RecoverPassword = () => {
               </div>
               <div className="mb-4">
                 <label className="block text-primaryTxt text-[18px] font-[600]">
-                  confirmPassword *
+                  confirm Password *
                 </label>
                 <Field type="password" name="confirmPassword" as={Input} />
                 <ErrorMessage
@@ -111,7 +111,7 @@ const RecoverPassword = () => {
 
               <button
                 type="submit"
-                className="w-full px-[15px] center gap-[8px] bg-primaryMat text-white py-[12px] hover:bg-green-600 rounded-[5px]"
+                className="w-full px-[15px] center gap-[8px] bg-main text-white py-[12px] hover:bg-green-600 rounded-[5px]"
               >
                 Go ahead <ArrowRight />
               </button>

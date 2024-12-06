@@ -1,7 +1,7 @@
 export type TRole = "ADMIN" | "CUSTOMER" | "VENDOR";
 
 export type TUser = {
-  _id: string;
+  id: string;
   email: string;
   first_name: string;
   last_name: string;

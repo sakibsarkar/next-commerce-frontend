@@ -1,11 +1,12 @@
-import React from 'react';
+import Protectedroute from "@/provider/Protectedroute";
+import MangeUsersView from "@/views/MangeUsersView";
 
 const page = () => {
-    return (
-        <div>
-            
-        </div>
-    );
+  return (
+    <Protectedroute role={"ADMIN"}>
+      <MangeUsersView />
+    </Protectedroute>
+  );
 };
 
 export default page;

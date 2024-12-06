@@ -3,6 +3,7 @@ import Checkout from "@/components/checkout/Checkout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import Protectedroute from "@/provider/Protectedroute";
+import { stripePromise } from "@/provider/ReduxProvider";
 import { useAppSelector } from "@/redux/hook";
 import { getDiscountPrice } from "@/utils/product";
 import { Elements } from "@stripe/react-stripe-js";
@@ -10,7 +11,6 @@ import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import "react-phone-number-input/style.css";
-import { stripePromise } from "../(pages)/page";
 
 export default function CheckoutPage() {
   const { items } = useAppSelector((state) => state.checkout);

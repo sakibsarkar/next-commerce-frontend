@@ -1,5 +1,6 @@
 import { api } from "@/redux/api/appSlice";
 import { IPayment } from "@/types/payment";
+import { IShop } from "@/types/shop";
 import { TUser } from "@/types/user";
 
 interface ISystemOverview {
@@ -70,6 +71,31 @@ const adminApi = api.injectEndpoints({
       },
       providesTags: ["admin"],
     }),
+    getShopList: builder.query<
+      { data: IShop[]; meta: { totalDoc: number } },
+      Record<string, unknown>
+    >({
+      query: (query) => {
+        const entries = Object.entries(query);
+        let queryString = "";
+        entries.forEach(([key, value], index) => {
+          if (!value) {
+            return;
+          }
+          if (index === 0) {
+            queryString += `${key}=${value}`;
+          } else {
+            queryString += `&${key}=${value}`;
+          }
+        });
+
+        return {
+          url: `/admin/shop-list?${queryString}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["admin"],
+    }),
     getMonthlyTransactionChartData: builder.query<
       { data: number[] },
       undefined
@@ -101,6 +127,15 @@ const adminApi = api.injectEndpoints({
       },
       invalidatesTags: ["admin"],
     }),
+    toggleShopBlacklistById: builder.mutation<{ data: IShop }, string>({
+      query: (shopId) => {
+        return {
+          url: `/admin//toggle-shop-blacklist/${shopId}`,
+          method: "PATCH",
+        };
+      },
+      invalidatesTags: ["admin"],
+    }),
   }),
 });
 export const {
@@ -110,4 +145,6 @@ export const {
   useGetUserListQuery,
   useDeleteUserByIdMutation,
   useToggleUserSuspensionByIdMutation,
+  useGetShopListQuery,
+  useToggleShopBlacklistByIdMutation
 } = adminApi;

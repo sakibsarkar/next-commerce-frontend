@@ -5,6 +5,7 @@ export interface IShop {
   name: string;
   logo: string;
   description: any;
+  isBlackListed: boolean;
   ownerId: string;
   ownerInfo: TUser;
   createdAt: string;

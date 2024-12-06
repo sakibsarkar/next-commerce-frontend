@@ -1,10 +1,10 @@
 import Protectedroute from "@/provider/Protectedroute";
-import MyShopView from "@/views/MyShopView";
+import MangeShopView from "@/views/MangeShopView";
 
 const page = () => {
   return (
-    <Protectedroute role={"VENDOR"}>
-      <MyShopView />
+    <Protectedroute role={"ADMIN"}>
+      <MangeShopView />
     </Protectedroute>
   );
 };

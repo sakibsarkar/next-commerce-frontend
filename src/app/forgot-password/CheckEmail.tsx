@@ -40,7 +40,7 @@ const CheckEmail = ({
         <p>Didn&apos;t recive any Mail?</p>{" "}
         <button
           onClick={() => setIsSent(false)}
-          className="bg-primaryMat text-white py-[4px] px-[8px] rounded-[5px] disabled:bg-primaryMat/25 disabled:text-primaryMat center gap-[5px]"
+          className="bg-primaryMat text-main py-[4px] px-[8px] rounded-[5px] disabled:bg-primaryMat/25 disabled:text-primaryMat center gap-[5px]"
           disabled={!!timer}
         >
           {timer

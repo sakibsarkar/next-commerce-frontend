@@ -25,36 +25,45 @@ const RecoverPassword = () => {
   const router = useRouter();
 
   const handleForgotPassword = async (values: TFormValues) => {
-    const res = await fetch(`${baseUrl}/auth/recover-password`, {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ password: values.password }),
-    });
-
-    if (res.status === 401) {
-      return toast.error(
-        "Your password session is expire,please request again for forgot password"
-      );
-    }
-    if (res.status === 404) {
-      return toast.error("No account found on this email");
-    }
-
-    if (!res.ok) {
-      return toast.error("something went wrong");
-    }
-    const data = await res.json();
-
-    if (data?.success) {
-      toast.success("password recovered", {
-        description:
-          "your password has been changed with new password. Please login",
+    const toastId = toast.loading("Please wait...");
+    try {
+      const res = await fetch(`${baseUrl}/auth/reset-password`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ password: values.password }),
       });
-      router.replace("/login");
-    }
+
+      if (res.status === 401) {
+        toast.dismiss(toastId);
+        return toast.error(
+          "Your password session is expire,please request again for forgot password"
+        );
+      }
+      if (res.status === 404) {
+        toast.dismiss(toastId);
+
+        return toast.error("No account found on this email");
+      }
+
+      if (!res.ok) {
+        toast.dismiss(toastId);
+
+        return toast.error("something went wrong");
+      }
+      const data = await res.json();
+
+      if (data?.success) {
+        toast.dismiss(toastId);
+        toast.success("password recovered", {
+          description:
+            "your password has been changed with new password. Please login",
+        });
+        router.replace("/login");
+      }
+    } catch (error) {}
   };
 
   return (

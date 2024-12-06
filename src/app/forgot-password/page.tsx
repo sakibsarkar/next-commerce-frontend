@@ -1,5 +1,6 @@
 "use client";
 import { Input } from "@/components/ui/input";
+import { baseUrl } from "@/redux/api/appSlice";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
@@ -7,7 +8,6 @@ import { useState } from "react";
 import { toast } from "sonner";
 import * as Yup from "yup";
 import CheckEmail from "./CheckEmail";
-import { baseUrl } from "@/redux/api/appSlice";
 
 const initialValues = {
   email: "",
@@ -23,32 +23,34 @@ const ForgotPassword = () => {
   const [isSent, setIsSent] = useState(false);
 
   const handleForgotPassword = async (values: TFormValues) => {
-    console.log(values);
-
- 
-
+    const toastId = toast.loading("Please wait...");
     try {
       const res = await fetch(`${baseUrl}/auth/forgot-password`, {
         body: JSON.stringify(values),
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-type": "application/json",
         },
       });
-      console.log(res.status);
       if (res.status === 404) {
-        return toast.error("No account found on this email");
+        return toast.error("No account found on this email", {
+          id: toastId,
+        });
       }
 
       if (!res.ok) {
-        return toast.error("something went wrong");
+        return toast.error("something went wrong", {
+          id: toastId,
+        });
       }
       const data = await res.json();
-
-      if (data?.success) {
-        setIsSent(true);
-      }
-    } catch (error) {}
+      toast.dismiss(toastId);
+      setIsSent(true);
+    } catch {
+      toast.error("something went wrong");
+      toast.dismiss(toastId);
+    }
   };
   return (
     <div className="h-screen w-full center">
@@ -87,7 +89,7 @@ const ForgotPassword = () => {
 
                 <button
                   type="submit"
-                  className="w-full px-[15px] center gap-[8px] bg-primaryMat text-white py-[12px] hover:bg-green-600 rounded-[5px]"
+                  className="w-full px-[15px] center gap-[8px] text-white bg-main py-[12px] hover:bg-green-600 rounded-[5px]"
                 >
                   Go ahead <ArrowRight />
                 </button>

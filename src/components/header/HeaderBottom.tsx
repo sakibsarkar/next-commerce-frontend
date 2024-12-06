@@ -13,8 +13,8 @@ const navlinks = [
     href: "/product",
   },
   {
-    lebel: "Contact Us",
-    href: "/contact",
+    lebel: "Recently viewed",
+    href: "/recent-products",
   },
 ];
 const HeaderBottom = () => {

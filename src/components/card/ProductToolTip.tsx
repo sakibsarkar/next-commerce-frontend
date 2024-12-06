@@ -80,7 +80,7 @@ const ProductToolTip: React.FC<IProps> = ({ product }) => {
             <GoGitCompare className="w-[50px]" />
           </button>
           <Link
-            href={`/products/${product.id}}`}
+            href={`/product/${product.id}`}
             className="p-[5px] border-r-[1px] border-borderColor hover:bg-[#f0f0f0]"
           >
             <Eye className="w-[50px]" />

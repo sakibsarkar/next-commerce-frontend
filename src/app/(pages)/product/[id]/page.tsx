@@ -1,3 +1,4 @@
+import AddToRecentProductList from "@/components/productDetails/AddToRecentProductList";
 import ProductImageSlide from "@/components/productDetails/ProductImageSlide";
 import ProductOrderActions from "@/components/productDetails/ProductOrderActions";
 import ProductReviews from "@/components/productDetails/ProductReviews";
@@ -104,6 +105,7 @@ export default async function ProductDetails({ params }: any) {
 
       <ProductReviews productId={product?.id} />
       <RelatedPropducts categoryId={product?.categoryId} />
+      <AddToRecentProductList productId={product?.id} />
     </div>
   );
 }

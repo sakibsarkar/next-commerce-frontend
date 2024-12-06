@@ -29,6 +29,11 @@ const Protectedroute: React.FC<IProps> = ({ role, children }) => {
     return <></>;
   }
 
+  if (user.isSuspended || user.isDeleted) {
+    router.push("/suspended");
+    return <></>;
+  }
+
   return children;
 };
 

@@ -20,15 +20,18 @@ const adminApi = api.injectEndpoints({
       providesTags: ["admin"],
     }),
     getTransactionHistory: builder.query<
-      { data: IPayment[] },
+      { data: IPayment[]; meta: { totalDoc: number } },
       Record<string, unknown>
     >({
       query: (query) => {
         const entries = Object.entries(query);
         let queryString = "";
         entries.forEach(([key, value], index) => {
+          if (!value) {
+            return;
+          }
           if (index === 0) {
-            queryString += `?${key}=${value}`;
+            queryString += `${key}=${value}`;
           } else {
             queryString += `&${key}=${value}`;
           }
@@ -58,5 +61,5 @@ const adminApi = api.injectEndpoints({
 export const {
   useGetSystemOverviewQuery,
   useGetMonthlyTransactionChartDataQuery,
-  useGetTransactionHistoryQuery
+  useGetTransactionHistoryQuery,
 } = adminApi;

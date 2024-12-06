@@ -1,8 +1,7 @@
 import { NavItem } from "@/types/dashboardNav";
 import { BsFileEarmarkPost } from "react-icons/bs";
-import { CiUser, CiViewList } from "react-icons/ci";
+import { CiCreditCard2, CiViewList } from "react-icons/ci";
 import { GrServices } from "react-icons/gr";
-
 export const adminLinks: NavItem[] = [
   {
     href: "/dashboard/admin",
@@ -11,11 +10,11 @@ export const adminLinks: NavItem[] = [
   },
   {
     href: "/dashboard/admin/transactions",
-    Icon: CiUser,
+    Icon: CiCreditCard2,
     title: "transactions",
   },
   {
-    href: "/dashboard/manage-user",
+    href: "/dashboard/admin/manage-user",
     Icon: CiViewList,
 
     title: "Manage Users",

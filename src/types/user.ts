@@ -6,6 +6,8 @@ export type TUser = {
   first_name: string;
   last_name: string;
   role: TRole;
+  isDeleted: boolean;
+  isSuspended: boolean;
   createdAt: string;
   image?: string;
   auth?: {

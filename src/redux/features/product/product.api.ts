@@ -67,6 +67,19 @@ const uploadApi = api.injectEndpoints({
       },
       providesTags: ["product", "follow"],
     }),
+    getFlashSaleProducts: builder.query<
+      { data: IProduct[]; meta: { totalDoc: number } },
+      { limit?: number; page?: number }
+    >({
+      query: ({ limit = 10, page = 1 }) => {
+        return {
+          url: `/product/flash-sale?limit=${limit}&page=${page}`,
+          method: "GET",
+        };
+      },
+
+      providesTags: ["product"],
+    }),
     checkIsProductExistByName: builder.mutation<{ data: boolean }, string>({
       query: (name) => {
         return {
@@ -133,5 +146,6 @@ export const {
   useCreateProductMutation,
   useGetUsersShopProdcutsQuery,
   useDuplicateProductMutation,
-  useDeleteProductByIdMutation
+  useDeleteProductByIdMutation,
+  useGetFlashSaleProductsQuery,
 } = uploadApi;

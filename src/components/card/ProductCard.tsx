@@ -28,7 +28,7 @@ const ProductCard = ({ product }: { product: IProduct }) => {
 
     if (!colorId || !sizeId) {
       toast.error("These are test data, you cant add to cart");
-      return
+      return;
     }
 
     const payload = {
@@ -59,8 +59,8 @@ const ProductCard = ({ product }: { product: IProduct }) => {
 
   return (
     <>
-      <div className={`h-auto w-full bg-white p-[10px]`}>
-        <div className="w-full relative cursor-pointer group/image overflow-hidden">
+      <div className={`h-auto w-full bg-white p-[10px] group/image`}>
+        <div className="w-full relative cursor-pointer overflow-hidden">
           <Image
             src={product.images[0]}
             alt={product.name}
@@ -108,12 +108,24 @@ const ProductCard = ({ product }: { product: IProduct }) => {
               </>
             )}
           </div>
-          <button
-            onClick={() => handleAddToCart()}
-            className="bg-main text-mainTxt py-[5px] px-[10px] w-fit font-[600] text-[14px]"
-          >
-            Add to Cart
-          </button>
+          <div className=" flex justify-between items-center">
+            <button
+              onClick={() => handleAddToCart()}
+              className="bg-main text-mainTxt py-[5px] px-[10px] w-fit font-[600] text-[14px]"
+            >
+              Add to Cart
+            </button>
+
+            {product.discount ? (
+              <Link href={"/flash-sale"} className="relative">
+                <span className="text-[10px] rounded-[50px] border-[1px] text-[#ff4646] border-[#ff4646] py-[3px] px-[10px] w-fit font-[600] relative z-[10] hover:bg-[#ff4646] hover:text-white">
+                  Flash {product.discount} %
+                </span>
+              </Link>
+            ) : (
+              ""
+            )}
+          </div>
         </div>
       </div>
 

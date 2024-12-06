@@ -1,3 +1,4 @@
+"use client";
 import { baseUrl } from "@/redux/api/appSlice";
 import { IProduct } from "@/types/product";
 import { useEffect, useState } from "react";

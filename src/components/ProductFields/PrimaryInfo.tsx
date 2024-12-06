@@ -70,7 +70,7 @@ const PrimaryInfo: React.FC<IProps> = ({
           onChange={onCategoryChange}
           defaultValue={defaultCategory}
         />
-        <div className="flex items-start gap-4">
+        <div className="flex items-start gap-4 mt-[15px]">
           <div className="w-full">
             <Label htmlFor="price">Price</Label>
             <Field
@@ -79,7 +79,21 @@ const PrimaryInfo: React.FC<IProps> = ({
               id="price"
               type="number"
               placeholder="0.00"
-              className="mt-1"
+            />
+            <ErrorMessage
+              name="price"
+              component="div"
+              className="text-red-500 text-sm"
+            />
+          </div>
+          <div className="w-full">
+            <Label htmlFor="discount">discount</Label>
+            <Field
+              name="discount"
+              as={Input}
+              id="discount"
+              type="number"
+              placeholder="0.00"
             />
             <ErrorMessage
               name="price"
@@ -94,4 +108,3 @@ const PrimaryInfo: React.FC<IProps> = ({
 };
 
 export default PrimaryInfo;
-

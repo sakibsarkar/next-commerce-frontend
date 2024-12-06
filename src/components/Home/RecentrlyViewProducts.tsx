@@ -1,8 +1,8 @@
+"use client";
 import useGetRecentProducts from "@/hooks/useGetRecentProducts";
 import ProductCard from "../card/ProductCard";
 import ProductSkeleton from "../skeleton/ProductSkeleton";
 import { Separator } from "../ui/separator";
-
 const RecentrlyViewProducts = () => {
   const { products, isLoading } = useGetRecentProducts();
 
@@ -10,7 +10,7 @@ const RecentrlyViewProducts = () => {
     return <></>;
   }
   return (
-    <div className="min-h-screen py-[20px]">
+    <div className="py-[20px]">
       <h4 className="text-[25px] font-[700] text-mainTxt">
         Recently viewed Products
       </h4>

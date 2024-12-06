@@ -34,10 +34,16 @@ const categoryApi = api.injectEndpoints({
       },
       invalidatesTags: ["category"],
     }),
-    updateCategory: builder.mutation<{ data: ICategory }, Partial<ICategory>>({
-      query: (payload) => {
+    updateCategory: builder.mutation<
+      { data: ICategory },
+      {
+        id: string;
+        payload: Partial<ICategory>;
+      }
+    >({
+      query: ({ id, payload }) => {
         return {
-          url: `/category/update/${payload.id}`,
+          url: `/category/update/${id}`,
           method: "PATCH",
           body: payload,
         };

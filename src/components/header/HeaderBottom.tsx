@@ -16,6 +16,10 @@ const navlinks = [
     lebel: "Recently viewed",
     href: "/recent-products",
   },
+  {
+    lebel: "Contact Us",
+    href: "/contact-us",
+  },
 ];
 const HeaderBottom = () => {
   const path = usePathname();
@@ -42,7 +46,7 @@ const HeaderBottom = () => {
         <div className="flex items-center">
           <div className="flex items-center justify-start gap-[10px]">
             <Link
-              href="/profile/orders"
+              href="/profile/my-orders"
               className="md:flex hidden items-center gap-[5px] font-[500] pr-[10px] border-r-[1px] border-black "
             >
               My Orders

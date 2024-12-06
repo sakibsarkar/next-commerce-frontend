@@ -8,12 +8,14 @@ import {
 } from "@/components/ui/table";
 import { useAppSelector } from "@/redux/hook";
 import { TUser } from "@/types/user";
+import NoTableDataFound from "../uiElements/NoTableDataFound";
 import DeleteUser from "./DeleteUser";
 import SuspendUser from "./SuspendUser";
 interface IProps {
   users: TUser[];
+  isLoading: boolean;
 }
-const UsersTable: React.FC<IProps> = ({ users }) => {
+const UsersTable: React.FC<IProps> = ({ users, isLoading }) => {
   const { user: authUser } = useAppSelector((state) => state.auth);
   return (
     <Table>
@@ -49,6 +51,8 @@ const UsersTable: React.FC<IProps> = ({ users }) => {
             </TableCell>
           </TableRow>
         ))}
+
+        {!isLoading && users.length === 0 && <NoTableDataFound span={7} />}
       </TableBody>
     </Table>
   );

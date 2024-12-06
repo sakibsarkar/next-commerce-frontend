@@ -31,7 +31,9 @@ interface IProps {
 }
 
 const SideBar: React.FC<IProps> = ({ showSidebar, setShowSidebar }) => {
+  const { user } = useAppSelector((state) => state.auth);
   const { total } = useAppSelector((state) => state.cart);
+
   const path = usePathname();
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
@@ -93,15 +95,19 @@ const SideBar: React.FC<IProps> = ({ showSidebar, setShowSidebar }) => {
             {lebel}
           </Link>
         ))}
-        <Link
-          onClick={() => setShowSidebar(false)}
-          href={"/profile/orders"}
-          className={`w-full px-[15px] py-[8px] rounded-[5px] ${
-            path === "/profile/orders" ? "bg-main text-white" : "text-main"
-          }`}
-        >
-          Manage Orders
-        </Link>
+        {user && user.role === "CUSTOMER" ? (
+          <Link
+            onClick={() => setShowSidebar(false)}
+            href={"/profile/my-orders"}
+            className={`w-full px-[15px] py-[8px] rounded-[5px] ${
+              path === "/profile/my-orders" ? "bg-main text-white" : "text-main"
+            }`}
+          >
+            Manage Orders
+          </Link>
+        ) : (
+          ""
+        )}
       </div>
       <Separator className="mt-[20px]" />
       <Link

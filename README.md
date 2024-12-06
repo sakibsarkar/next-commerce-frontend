@@ -1,22 +1,23 @@
-# On The Go
+# Next Commerce
 
-## Live link - [On the go](https://onthego-frontend.vercel.app/?searchTerm=&page=1)
+## Live link - [Next Commerce](https://next-commerce-client-theta.vercel.app/)
 
-## 🔗 Server side repository - [on_the_go_backend](https://github.com/sakibsarkar/on_the_go_backend)
+## 🔗 Server side repository - [next-commerce-backend](https://github.com/sakibsarkar/next-commerce-backend)
 
 ## Introduction
 
-The "Travel Tips & Destination Guides" platform is a Next.js-based community hub tailored for travel enthusiasts, allowing users to connect, share, and explore global travel insights. The platform fosters a social environment where users can contribute personal travel stories, exchange tips, and engage in discussions with fellow travelers. Through user authentication and profile customization, individuals can follow others, save favorite posts, and build a personalized travel experience.
+Next Commerce is a comprehensive e-commerce platform designed to deliver a seamless experience for customers, vendors, and administrators. Built with Next.js, Node.js, and PostgreSQL , it ensures high performance, scalability, and security.
 
-Additionally, the platform offers premium content access with payment integration, unlocking exclusive travel guides, tips, and insider knowledge. By blending user-generated content with rich travel information, the project helps users make well-informed travel decisions, discover hidden gems around the world, and enhance their travel adventures. Whether it's about exploring new destinations or connecting with like-minded travelers, this platform aims to make every trip a memorable experience.
+Administrators have full control over the platform, including managing users, vendors, and product categories. Suspended accounts are automatically deleted after 30 days. Vendors can create and manage their shops, add and edit products, track inventory, and view order histories. Customers can explore products using advanced filters, compare similar items, follow shops, and leave reviews after purchases.
 
-This README file will guide you through the steps required to set up and run the project on your local computer.
+The platform supports responsive design for mobile and desktop users, integrates cloud storage for images, and provides a secure payment system via Stripe. With features like paginated listings, single-vendor cart restrictions, and personalized browsing, Next Commerce delivers a modern, user-friendly e-commerce experience.
 
 ## Features
 
-- Api debouncing for the search functionality to reduce the number of API calls
-- Service comparison
-- Upcoming booking countdown
+- Site administrators can suspend user/vendor, after 30days of suspension the suspended account will be automatically deleted
+- Infinite scrolling
+- Users can follow unfollow shop. and get product suggedsion based on their following shops
+- Order manage for both vendor and users
 
 ## Technology Stack
 
@@ -25,6 +26,7 @@ This README file will guide you through the steps required to set up and run the
 - Shadcn
 - tailwind CSS
 - Readux toolkit & query
+- Stripe
 
 ## Getting Started
 
@@ -61,7 +63,8 @@ yarn install
 Create a .env file in the root directory of the project and add your MongoDB credentials:
 
 ```
-VITE_BASE_API=https://onthego-backend.vercel.app/
+NEXT_PUBLIC_API_API=BACKEND_URL
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=STRIPE_PUBLIC_KEY
 ```
 
 ### Running the Project

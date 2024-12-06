@@ -9,9 +9,10 @@ import {
 } from "@/components/ui/table";
 import { IShop } from "@/types/shop";
 import { trimText } from "@/utils/trimText";
+import NoTableDataFound from "../uiElements/NoTableDataFound";
 import ToggleBlackListShop from "./ToggleBlackListShop";
 
-const ShopsTable = ({ shops }: { shops: IShop[] }) => {
+const ShopsTable = ({ shops,isLoading }: { shops: IShop[],isLoading:boolean }) => {
   return (
     <Table>
       <TableHeader>
@@ -56,11 +57,13 @@ const ShopsTable = ({ shops }: { shops: IShop[] }) => {
             </TableCell>
             <TableCell>
               <div className="flex space-x-2">
-                <ToggleBlackListShop shop={shop}/>
+                <ToggleBlackListShop shop={shop} />
               </div>
             </TableCell>
           </TableRow>
         ))}
+
+        {!isLoading && shops.length === 0 && <NoTableDataFound span={7} />}
       </TableBody>
     </Table>
   );

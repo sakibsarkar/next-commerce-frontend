@@ -14,7 +14,7 @@ const MangeShopView = () => {
     searchTerm: "",
   });
 
-  const { data } = useGetShopListQuery(query);
+  const { data, isFetching } = useGetShopListQuery(query);
 
   return (
     <Card className="w-full mx-auto">
@@ -36,7 +36,7 @@ const MangeShopView = () => {
             setQuery({ ...query, isBlackListed: list });
           }}
         />
-        <ShopsTable shops={data?.data || []} />
+        <ShopsTable isLoading={isFetching} shops={data?.data || []} />
       </CardContent>
     </Card>
   );

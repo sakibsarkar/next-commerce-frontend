@@ -11,14 +11,14 @@ const HeaderTop = () => {
             className="w-fit center gap-[5px] font-[500] text-[13px] hover:underline"
           >
             <Phone width={15} />
-            +8801706044051
+            +8801234567891
           </Link>
           <Link
-            href={"mailto:feroxshopbd@gmail.com"}
+            href={"mailto:nextcommerce@info.com"}
             className="w-fit center gap-[5px] font-[500] text-[13px] hover:underline"
           >
             <Mail width={15} />
-            feroxshopbd@gmail.com
+            nextcommerce@info.com
           </Link>
         </div>
         {/* <SocialBox /> */}

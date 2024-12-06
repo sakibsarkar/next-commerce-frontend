@@ -1,6 +1,7 @@
 "use client";
 import useSetSearchParams from "@/hooks/useSetParams";
 import { PackageX } from "lucide-react";
+import Link from "next/link";
 import { Button } from "../ui/button";
 const NotProductFound = () => {
   const { clearSearchParams } = useSetSearchParams();
@@ -19,7 +20,9 @@ const NotProductFound = () => {
         <Button variant="outline" onClick={handleClearFilter}>
           Clear filters
         </Button>
-        <Button>View cart</Button>
+        <Link href={"/cart"} passHref>
+          <Button>View cart</Button>
+        </Link>
       </div>
     </div>
   );

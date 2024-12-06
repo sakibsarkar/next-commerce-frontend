@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/table";
 import { NextPagination } from "@/components/uiElements/NextPagination";
 import NextSearchBox from "@/components/uiElements/NextSearchBox";
+import NoTableDataFound from "@/components/uiElements/NoTableDataFound";
 import { useGetTransactionHistoryQuery } from "@/redux/features/admin/admin.api";
 import { format } from "date-fns";
 import { Copy } from "lucide-react";
@@ -22,7 +23,7 @@ const TransactionHistoryView = () => {
     limit: 10,
     transactionId: "",
   });
-  const { data } = useGetTransactionHistoryQuery(query);
+  const { data, isFetching } = useGetTransactionHistoryQuery(query);
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -74,6 +75,10 @@ const TransactionHistoryView = () => {
                   </TableCell>
                 </TableRow>
               ))}
+
+              {!isFetching && data?.data.length === 0 && (
+                <NoTableDataFound span={7} />
+              )}
             </TableBody>
           </Table>
         </CardContent>

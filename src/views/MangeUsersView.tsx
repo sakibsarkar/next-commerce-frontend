@@ -36,7 +36,7 @@ const MangeUsersView = () => {
             setQuery({ ...query, role: newRole });
           }}
         />
-        <UsersTable users={data?.data || []} />
+        <UsersTable users={data?.data || []} isLoading={isFetching} />
         <NextPagination
           totalDocs={data?.meta.totalDoc || 0}
           limit={10}
@@ -44,7 +44,7 @@ const MangeUsersView = () => {
         />
       </CardContent>
       {isFetching ? (
-        <span className="absolute w-full h-full center text-[18px]">
+        <span className="absolute w-full h-full center text-[18px] top-0 left-0 bg-[#ffffffa6]">
           loading...
         </span>
       ) : (

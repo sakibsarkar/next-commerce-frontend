@@ -24,7 +24,7 @@ export const adminLinks: NavItem[] = [
     title: "Manage Shops",
   },
   {
-    href: "/dashboard/manage-categories",
+    href: "/dashboard/admin/manage-categories",
     Icon: BsFileEarmarkPost,
     title: "Manage Categories",
   },

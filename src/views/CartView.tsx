@@ -10,7 +10,7 @@ import { getDiscountPrice } from "@/utils/product";
 import { X } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const CartView = () => {
@@ -19,6 +19,12 @@ const CartView = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
+
+  useEffect(() => {
+    if (items.length === 0) {
+      router.push("/");
+    }
+  }, []);
 
   const totalDiscountPrice = items.reduce((acc, item) => {
     const discount = item.discount;
@@ -80,6 +86,8 @@ const CartView = () => {
   };
 
   const handleProccedToCheckout = () => {
+    if (items.length === 0) return;
+
     const checkoutItems = items
       .filter((item) => !item.isOutOfStock)
       .map((item) => ({

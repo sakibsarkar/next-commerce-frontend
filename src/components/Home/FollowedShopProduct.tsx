@@ -15,7 +15,7 @@ const FollowedShopProduct = () => {
   }
 
   if (data?.data?.length === 0) {
-    <></>;
+    return <></>;
   }
 
   return (

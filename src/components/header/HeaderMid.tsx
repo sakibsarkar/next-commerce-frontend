@@ -16,10 +16,10 @@ const HeaderMid = () => {
       <div className="flex layout_container items-center justify-between gap-[15px]">
         <Link href="/" className="flex items-center">
           <Image
-            width={50}
-            height={50}
+            width={100}
+            height={100}
             src="/images/logo.png"
-            className="w-[50px]"
+            className="w-[100px]"
             alt="ferox logo"
           />
         </Link>

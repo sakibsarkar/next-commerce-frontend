@@ -1,13 +1,14 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { useAppSelector } from "@/redux/hook";
+import { logout } from "@/redux/features/auth/auth.slice";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { adminLinks } from "@/routes/admin.route";
 import { vendorLinks } from "@/routes/vendor.route";
+import Cookies from "js-cookie";
 import { ChevronLeft } from "lucide-react";
 import { SetStateAction, useEffect } from "react";
 import { Button } from "../ui/button";
 import { DashboardNav } from "./DashboardNav";
-
 type SidebarProps = {
   className?: string;
   setIsopen: React.Dispatch<SetStateAction<boolean>>;
@@ -20,7 +21,7 @@ export default function Sidebar({
   setIsopen,
 }: SidebarProps) {
   const { user } = useAppSelector((state) => state.auth);
-
+  const dispatch = useAppDispatch();
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       // event target
@@ -63,6 +64,12 @@ export default function Sidebar({
 
     width > 767 ? "" : setIsopen(false);
   };
+
+  const handleLogout = () => {
+    dispatch(logout(undefined));
+    Cookies.remove("refreshToken");
+  };
+
   return (
     <aside
       style={{
@@ -100,7 +107,11 @@ export default function Sidebar({
           </div>
         </div>
       </div>
-      <Button className="w-[90%] mx-auto" variant={"destructive"}>
+      <Button
+        onClick={handleLogout}
+        className="w-[90%] mx-auto"
+        variant={"destructive"}
+      >
         Logout
       </Button>
     </aside>

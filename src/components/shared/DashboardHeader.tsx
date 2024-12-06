@@ -19,13 +19,16 @@ const DashboardHeader: React.FC<ISideBarState> = ({ setIsOpen }) => {
   const { user } = useAppSelector((state) => state.auth);
   return (
     <div className="w-full h-[70px] flex items-center justify-between px-[20px]  py-[10px] border-b shrink-0">
-      <Image
-        width={60}
-        height={60}
-        src="/images/logo.png"
-        alt="logo"
-        className="w-[60px] md:flex hidden"
-      />
+      <Link href="/">
+        <Image
+          width={90}
+          height={70}
+          src="/images/logo.png"
+          alt="logo"
+          className="w-[90px] md:flex hidden"
+        />
+      </Link>
+
       <Button
         className="menuBTn flex md:hidden"
         onClick={() => setIsOpen(true)}
@@ -51,15 +54,6 @@ const DashboardHeader: React.FC<ISideBarState> = ({ setIsOpen }) => {
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
               <Link href={"/"}>Home</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link href={"/dashboard/admin/manage-bookings"}>
-                Booking Manage
-              </Link>
-            </DropdownMenuItem>
-
-            <DropdownMenuItem asChild>
-              <Link href={"/"}>Setting</Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

@@ -9,14 +9,14 @@ const quickSand = Quicksand({
 });
 
 export const metadata: Metadata = {
-  title: "On the go",
-  description: "Travel media",
+  title: "Next Commerce",
+  description: "Multi vendor ecommerce platform",
 
   openGraph: {
-    title: "On the go",
-    description: "Travel media",
-    url: "https://onthego-frontend.vercel.app/",
-    siteName: "On the go",
+    title: "Next Commerce",
+    description: "Multi vendor ecommerce platform",
+    url: "https://next-commerce-client-theta.vercel.app",
+    siteName: "Next Commerce",
     locale: "en_US",
     type: "website",
   },

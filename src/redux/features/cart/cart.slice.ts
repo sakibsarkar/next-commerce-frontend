@@ -97,8 +97,11 @@ const cartSlice = createSlice({
 
       if (payload.quantity) {
         item.quantity = payload.quantity;
+        console.log(item.quantity);
+
         state.total = state.items.reduce(
-          (acc, item) => acc + item.price * item.quantity,
+          (acc, item) =>
+            acc + getDiscountPrice(item.price, item.discount) * item.quantity,
           0
         );
       }

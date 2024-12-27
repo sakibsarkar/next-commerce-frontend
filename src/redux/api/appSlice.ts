@@ -71,6 +71,7 @@ export const api = createApi({
     "follow",
     "upload",
     "review",
+    "coupon",
   ],
   endpoints: () => ({}),
 });

@@ -1,3 +1,4 @@
+import CouponCard from "@/components/card/CouponCard";
 import AddToRecentProductList from "@/components/productDetails/AddToRecentProductList";
 import ProductImageSlide from "@/components/productDetails/ProductImageSlide";
 import ProductOrderActions from "@/components/productDetails/ProductOrderActions";
@@ -7,6 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { baseUrl } from "@/redux/api/appSlice";
+import { ICoupon } from "@/types/coupon";
 import { IProduct } from "@/types/product";
 import { getDiscountPrice } from "@/utils/product";
 import { getFallbackText } from "@/utils/trimText";
@@ -25,7 +27,7 @@ export default async function ProductDetails({ params }: any) {
   });
   const data = await res.json();
 
-  const product = data.data as IProduct;
+  const product = data.data as IProduct & { coupons: ICoupon[] };
   console.log({ product, params });
 
   return (
@@ -63,7 +65,12 @@ export default async function ProductDetails({ params }: any) {
               {product?.avgRating?.toFixed(1)}
             </span>
           </div>
-          <ProductOrderActions product={product} />{" "}
+          <div className="flex items-center justify-start gap-[15px]">
+            {product?.coupons?.map((coupon) => (
+              <CouponCard coupon={coupon} key={coupon.id} />
+            ))}
+          </div>
+          <ProductOrderActions product={product} />
           <Link href={`/shop/${product?.shopId}`} className="w-full mt-6 flex">
             <Card className="p-4 w-full">
               <div className="flex items-center gap-3">

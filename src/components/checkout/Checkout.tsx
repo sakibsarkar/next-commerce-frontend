@@ -1,9 +1,11 @@
 "use client";
 import { clearCart } from "@/redux/features/cart/cart.slice";
 import { clearCheckoutSession } from "@/redux/features/checkout/checkout.slice";
+import { useCheckCouponMutation } from "@/redux/features/coupon/coupon.api";
 import { useCreateOrderMutation } from "@/redux/features/order/order.api";
 import { useCreatePaymentIntentMutation } from "@/redux/features/payment/payment.api";
 import { useAppSelector } from "@/redux/hook";
+import { ICoupon } from "@/types/coupon";
 import { getDiscountPrice } from "@/utils/product";
 import {
   CardCvcElement,
@@ -12,19 +14,86 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
+import { CheckCircle, XCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { FaSpinner } from "react-icons/fa6";
+import { IoInformationSharp } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Input } from "../ui/input";
 import ShippingAddressSelector from "./ShippingAddressSelector";
 
-const Checkout = () => {
+interface IProps {
+  onCouponApplied: (isCouponApplied: ICoupon | undefined) => void;
+}
+
+const Checkout: React.FC<IProps> = ({ onCouponApplied }) => {
   const { user } = useAppSelector((state) => state.auth);
   const { items } = useAppSelector((state) => state.checkout);
   const dispatch = useDispatch();
+  const [couponCode, setCouponCode] = useState("");
 
+  const [checkCoupon, { isLoading: isCouponChecking }] =
+    useCheckCouponMutation();
+  const [isCouponApplied, setIsCouponApplied] = useState(false);
+
+  const [message, setMessage] = useState<{
+    type: "success" | "error" | null;
+    text: string;
+  }>({ type: null, text: "" });
+
+  const validCoupon = "FLASH10";
+  const handleApplyCoupon = async () => {
+    if (isCouponChecking) {
+      return;
+    }
+
+    const payload = {
+      couponCode,
+      productIds: items.map((item) => item.productId),
+    };
+
+    try {
+      const res = await checkCoupon(payload);
+      const error = res.error as any;
+      if (error) {
+        setIsCouponApplied(false);
+        onCouponApplied(undefined);
+        setMessage({
+          type: "error",
+          text: "Invalid coupon code. Please try again.",
+        });
+        return;
+      }
+
+      const coupon = res.data?.data;
+      console.log(coupon);
+
+      if (!coupon) {
+        setIsCouponApplied(false);
+        onCouponApplied(undefined);
+        setMessage({
+          type: "error",
+          text: "Invalid coupon code or maybe coupon is not available for these products. Please try again.",
+        });
+        return;
+      }
+
+      setIsCouponApplied(true);
+      onCouponApplied(coupon);
+      setMessage({ type: "success", text: "Coupon applied successfully!" });
+    } catch (error) {
+      setIsCouponApplied(false);
+      onCouponApplied(undefined);
+      setMessage({
+        type: "error",
+        text: "Invalid coupon code or maybe coupon is not available for these products. Please try again.",
+      });
+    }
+  };
   const [selectedSipingAddress, setSelectedSipingAddress] = useState<
     string | null
   >(null);
@@ -150,9 +219,56 @@ const Checkout = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Customer Information</CardTitle>
+        <CardTitle>Billing Information</CardTitle>
       </CardHeader>
       <CardContent>
+        <div className="mb-[25px]">
+          <div className="flex gap-[5px]">
+            <Input
+              type="text"
+              placeholder="Enter coupon code"
+              value={couponCode}
+              onChange={(e) => setCouponCode(e.target.value)}
+              className="flex-grow"
+              disabled={isCouponApplied}
+            />
+            <Button
+              onClick={handleApplyCoupon}
+              disabled={
+                !couponCode.trim() || isCouponApplied || isCouponChecking
+              }
+              className="center gap-[5px]"
+            >
+              Apply
+              {isCouponChecking ? <FaSpinner className="animate-spin" /> : ""}
+            </Button>
+          </div>
+          {!isCouponApplied && items.length > 0 ? (
+            <p className="text-[13px] mt-[8px] flex items-center gap-[7px]">
+              <span className="w-[15px] h-[15px] center bg-main text-white rounded-full">
+                <IoInformationSharp />
+              </span>
+              You are buying more than one item, you can only apply one coupon
+              in this order
+            </p>
+          ) : (
+            ""
+          )}
+          {message.type && (
+            <div
+              className={`flex items-center space-x-2 ${
+                message.type === "success" ? "text-green-600" : "text-red-600"
+              }`}
+            >
+              {message.type === "success" ? (
+                <CheckCircle className="w-5 h-5" />
+              ) : (
+                <XCircle className="w-5 h-5" />
+              )}
+              <span>{message.text}</span>
+            </div>
+          )}
+        </div>
         <ShippingAddressSelector onChange={setSelectedSipingAddress} />
         <h4 className="text-[20px] font-[700] text-mainTxt">Card details</h4>
         <form onSubmit={handlePayment} className="mt-[15px]">

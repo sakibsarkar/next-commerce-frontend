@@ -19,6 +19,8 @@ const ShopProducts = ({
   const [resolvedParams, setResolvedParams] = useState<{
     searchTerm: string;
     category: string;
+    min_price: string;
+    max_price: string;
   } | null>(null);
 
   // Resolve `searchParams` only once
@@ -27,9 +29,11 @@ const ShopProducts = ({
       const search = await searchParams;
       const searchTerm = (search.searchTerm as string) || "";
       const category = (search.category as string) || "";
-      setResolvedParams({ searchTerm, category });
-      setPage(1);
+      const min_price = (search.min_price as string) || "0";
+      const max_price = (search.max_price as string) || "";
       setProducts([]);
+      setResolvedParams({ searchTerm, category, min_price, max_price });
+      setPage(1);
     };
     resolveParams();
   }, [searchParams]);
@@ -39,10 +43,10 @@ const ShopProducts = ({
 
     try {
       setIsLoading(true);
-      const { searchTerm, category } = resolvedParams;
+      const { searchTerm, category, min_price, max_price } = resolvedParams;
 
       const res = await fetch(
-        `${baseUrl}/product/get?page=${page}&searchTerm=${searchTerm}&limit=12&categories=${category}`
+        `${baseUrl}/product/get?page=${page}&searchTerm=${searchTerm}&limit=12&categories=${category}&maxPrice=${max_price}&minPrice=${min_price}`
       );
 
       const data = (await res.json()) as {
@@ -83,7 +87,6 @@ const ShopProducts = ({
     if (resolvedParams) {
       loadProducts();
     }
-    // Cleanup: Remove scroll event listener when component unmounts
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };

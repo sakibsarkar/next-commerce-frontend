@@ -5,16 +5,22 @@ import { Separator } from "@/components/ui/separator";
 import Protectedroute from "@/provider/Protectedroute";
 import { stripePromise } from "@/provider/ReduxProvider";
 import { useAppSelector } from "@/redux/hook";
+import { ICheckout } from "@/types/checkout";
+import { ICoupon } from "@/types/coupon";
 import { getDiscountPrice } from "@/utils/product";
 import { Elements } from "@stripe/react-stripe-js";
 import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import "react-phone-number-input/style.css";
 
 export default function CheckoutPage() {
   const { items } = useAppSelector((state) => state.checkout);
   const router = useRouter();
+  const [appliedCoupon, setAppliedCoupon] = useState<ICoupon | undefined>(
+    undefined
+  );
 
   const subTotal = items.reduce(
     (total, item) => total + item.price * item.quantity,
@@ -34,6 +40,29 @@ export default function CheckoutPage() {
     return acc + 0;
   }, 0);
 
+  const getCouponDiscountPrice = () => {
+    if (!appliedCoupon) return 0;
+    const product = items.find(
+      (item) => item.productId === appliedCoupon.productId
+    );
+    if (!product) return 0;
+
+    const couponDiscount = appliedCoupon.discount;
+    const price = getDiscountPrice(product.price, product.discount || 0);
+    const quantity = product.quantity;
+
+    if (!couponDiscount) {
+      return 0;
+    }
+    const discountPrice = (price * couponDiscount) / 100;
+    return discountPrice * quantity;
+  };
+
+  const getCoupnAppliedProduct = (): ICheckout | undefined => {
+    if (!appliedCoupon) return undefined;
+    return items.find((item) => item.productId === appliedCoupon.productId);
+  };
+
   return (
     <Protectedroute role="CUSTOMER">
       <div className="min-h-screen mx-auto p-4 w-full center">
@@ -47,7 +76,7 @@ export default function CheckoutPage() {
           <div className="grid md:grid-cols-2 gap-6">
             {/* Left side - Customer Information Form */}
             <Elements stripe={stripePromise}>
-              <Checkout />
+              <Checkout onCouponApplied={setAppliedCoupon} />
             </Elements>
 
             {/* Right side - Product Information and Pricing */}
@@ -58,10 +87,6 @@ export default function CheckoutPage() {
                 </CardHeader>
                 <CardContent className="flex items-start gap-4 flex-wrap">
                   {items.map((item, key) => {
-                    const discount = getDiscountPrice(
-                      item.price,
-                      item.discount
-                    );
                     return (
                       <div
                         key={key + "item"}
@@ -116,9 +141,23 @@ export default function CheckoutPage() {
                       <span>{subTotal.toFixed(2)} $</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>Discount</span>
+                      <span>Flash Discount</span>
                       <span>-{totalDiscountPrice.toFixed(2)} $ </span>
                     </div>
+                    {appliedCoupon ? (
+                      <div className="flex justify-between">
+                        <div className="flex items-start justify-start flex-col gap-[3px]">
+                          <span>Coupon discount</span>
+                          <span className="text-[12px] text-main font-[600]">
+                            * {appliedCoupon.discount}% added on &quot;
+                            {getCoupnAppliedProduct()?.name}&quot;
+                          </span>
+                        </div>
+                        <span> - {getCouponDiscountPrice().toFixed(2)} $</span>
+                      </div>
+                    ) : (
+                      ""
+                    )}
                     <div className="flex justify-between">
                       <span>Shipping</span>
                       <span> Free</span>
@@ -130,7 +169,13 @@ export default function CheckoutPage() {
                     <div className="flex justify-between font-semibold">
                       <span>Total</span>
                       <span>
-                        {(subTotal - totalDiscountPrice).toFixed(2)} $
+                        {appliedCoupon
+                          ? getDiscountPrice(
+                              subTotal - totalDiscountPrice,
+                              appliedCoupon.discount
+                            ).toFixed(2)
+                          : (subTotal - totalDiscountPrice).toFixed(2)}{" "}
+                        $
                       </span>
                     </div>
                   </div>

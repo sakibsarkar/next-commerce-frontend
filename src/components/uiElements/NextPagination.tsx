@@ -89,7 +89,7 @@ export function NextPagination({
   if (totalPages <= 1) return null;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 mt-4">
       {showText && (
         <PaginationText
           currentPage={currentPage}

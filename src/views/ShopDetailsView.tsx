@@ -6,7 +6,12 @@ import NextSearchBox from "@/components/uiElements/NextSearchBox";
 import { useGetProductsQuery } from "@/redux/features/product/product.api";
 import { useState } from "react";
 const ShopDetailsView = ({ shopId }: { shopId: string }) => {
-  const [query, setQuery] = useState({ page: 1, searchTerm: "", shopId });
+  const [query, setQuery] = useState({
+    page: 1,
+    limit: 12,
+    searchTerm: "",
+    shopId,
+  });
   const { data, isFetching } = useGetProductsQuery(query);
 
   return (

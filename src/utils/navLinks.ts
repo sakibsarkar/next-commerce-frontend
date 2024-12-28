@@ -41,7 +41,7 @@ export const navlinks: NavLink[] = [
   },
   {
     label: "View Shops",
-    href: "/shops",
+    href: "/shop",
     children: [
       {
         label: "All",
@@ -49,21 +49,21 @@ export const navlinks: NavLink[] = [
       },
       {
         label: "Top Rated",
-        href: "/shops",
+        href: "/shop",
         children: [
           {
             label: "Sakibs-shop",
-            href: "/shops?shopId=43088c24-61d4-429b-a0dc-485fd47d8b62",
+            href: "/shop/43088c24-61d4-429b-a0dc-485fd47d8b62",
           },
           {
             label: "ast",
-            href: "/shops?shopId=6087e696-ae23-4924-977f-b71df8cd5033",
+            href: "/shop/6087e696-ae23-4924-977f-b71df8cd5033",
           },
         ],
       },
       {
         label: "Following",
-        href: "/shops?following=true",
+        href: "/shop?following=true",
       },
     ],
   },

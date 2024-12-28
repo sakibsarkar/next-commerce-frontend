@@ -12,6 +12,30 @@ const shopInfoApi = api.injectEndpoints({
       },
       providesTags: ["shop"],
     }),
+    getAllShops: builder.query<
+      { data: IShop[]; meta: { totalDoc: number } },
+      Record<string, unknown>
+    >({
+      query: (query) => {
+        const entiries = Object.entries(query);
+        let queryString = "";
+        entiries.forEach(([key, value], index) => {
+          if (value) {
+            if (index === 0) {
+              queryString += `${key}=${value}`;
+            } else {
+              queryString += `&${key}=${value}`;
+            }
+          }
+        });
+
+        return {
+          url: `/shop/get-all?${queryString}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["shop"],
+    }),
     getOwnerShop: builder.query<
       { data: Omit<IShopInfo, "totalProduct" | "isFollowing"> },
       undefined
@@ -64,6 +88,7 @@ const shopInfoApi = api.injectEndpoints({
 });
 export const {
   useGetShopInfoByIdQuery,
+  useGetAllShopsQuery,
   useToggleShopFollowingMutation,
   useCreateShopMutation,
   useGetOwnerShopQuery,

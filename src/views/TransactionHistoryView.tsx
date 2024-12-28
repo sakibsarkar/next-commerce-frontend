@@ -11,6 +11,7 @@ import {
 import { NextPagination } from "@/components/uiElements/NextPagination";
 import NextSearchBox from "@/components/uiElements/NextSearchBox";
 import NoTableDataFound from "@/components/uiElements/NoTableDataFound";
+import TableDataLoading from "@/components/uiElements/TableDataLoading";
 import { useGetTransactionHistoryQuery } from "@/redux/features/admin/admin.api";
 import { format } from "date-fns";
 import { Copy } from "lucide-react";
@@ -23,7 +24,7 @@ const TransactionHistoryView = () => {
     limit: 10,
     transactionId: "",
   });
-  const { data, isFetching } = useGetTransactionHistoryQuery(query);
+  const { data, isFetching, isLoading } = useGetTransactionHistoryQuery(query);
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -52,6 +53,9 @@ const TransactionHistoryView = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
+              {isLoading && isFetching && (
+                <TableDataLoading cell={5} row={10} />
+              )}
               {data?.data.map((transaction) => (
                 <TableRow key={transaction.id}>
                   <TableCell>

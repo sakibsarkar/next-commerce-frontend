@@ -2,28 +2,46 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useCreateNewsLetterMutation } from "@/redux/features/newsLetter/newsLetter.api";
 import { Loader2, Mail, ShoppingBag } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import React, { useState } from "react";
 
 export default function NewsletterSection() {
   const [status, setStatus] = useState<{
     success?: boolean;
     message?: string;
   }>({});
-  const [isPending, setIsPending] = useState(false);
 
-  async function handleSubmit(formData: FormData) {
-    setIsPending(true);
+  const [createNewsLetter, { isLoading }] = useCreateNewsLetterMutation();
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
     try {
-      //   const result = await subscribeToNewsletter(formData);
+      const form = e.target as HTMLFormElement;
+      const email = form.email?.value || "";
+      const result = await createNewsLetter({ email });
+      const error = result.error as any;
+
+      if (error) {
+        setStatus({
+          success: false,
+          message:
+            error?.data?.message || "Something went wrong. Please try again.",
+        });
+        return;
+      }
+
+      setStatus({
+        success: true,
+        message: "Subscribed successfully",
+      });
     } catch (error) {
       setStatus({
         success: false,
         message: "Something went wrong. Please try again.",
       });
-    } finally {
-      setIsPending(false);
     }
   }
 
@@ -50,7 +68,7 @@ export default function NewsletterSection() {
             plus exclusive access to new arrivals and special promotions.
           </p>
 
-          <form action={handleSubmit} className="mt-10 max-w-md mx-auto">
+          <form onSubmit={handleSubmit} className="mt-10 max-w-md mx-auto">
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="relative flex-1">
                 <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -60,11 +78,11 @@ export default function NewsletterSection() {
                   placeholder="Enter your email"
                   required
                   className="pl-10"
-                  disabled={isPending}
+                  disabled={isLoading}
                 />
               </div>
-              <Button type="submit" disabled={isPending}>
-                {isPending ? (
+              <Button type="submit" disabled={isLoading}>
+                {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     Subscribing...

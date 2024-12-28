@@ -1,6 +1,7 @@
 "use client";
 
 import TransactionChart from "@/components/SystemOverview/TransactionChart";
+import TransactionTable from "@/components/SystemOverview/TransactionTable";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useGetSystemOverviewQuery } from "@/redux/features/admin/admin.api";
 import { CreditCard, ShoppingBag, Store, Users } from "lucide-react";
@@ -51,7 +52,10 @@ const DashboardOverviewView = () => {
           </div>
         ))}
       </div>
-      <TransactionChart />
+      <div className="flex items-start justify-start gap-[15px] mt-[15px]">
+        <TransactionChart />
+        <TransactionTable />
+      </div>
     </div>
   );
 };

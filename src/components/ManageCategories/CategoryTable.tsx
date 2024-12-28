@@ -8,12 +8,15 @@ import {
 } from "@/components/ui/table";
 import { ICategory } from "@/types/category";
 import EditCategory from "./EditCategory";
+import TableDataLoading from "../uiElements/TableDataLoading";
 
 interface IProps {
   categories: ICategory[];
+
+  isFetching: boolean;
 }
 
-const CategoryTable: React.FC<IProps> = ({ categories }) => {
+const CategoryTable: React.FC<IProps> = ({ categories,isFetching }) => {
   return (
     <Table>
       <TableHeader>
@@ -24,6 +27,7 @@ const CategoryTable: React.FC<IProps> = ({ categories }) => {
         </TableRow>
       </TableHeader>
       <TableBody>
+      { isFetching && <TableDataLoading cell={3} row={3} />}
         {categories.map((category) => (
           <TableRow key={category.id}>
             <TableCell className="font-medium">{category.label}</TableCell>

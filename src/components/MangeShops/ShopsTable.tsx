@@ -10,9 +10,16 @@ import {
 import { IShop } from "@/types/shop";
 import { trimText } from "@/utils/trimText";
 import NoTableDataFound from "../uiElements/NoTableDataFound";
+import TableDataLoading from "../uiElements/TableDataLoading";
 import ToggleBlackListShop from "./ToggleBlackListShop";
 
-const ShopsTable = ({ shops,isLoading }: { shops: IShop[],isLoading:boolean }) => {
+const ShopsTable = ({
+  shops,
+  isLoading,
+}: {
+  shops: IShop[];
+  isLoading: boolean;
+}) => {
   return (
     <Table>
       <TableHeader>
@@ -25,6 +32,7 @@ const ShopsTable = ({ shops,isLoading }: { shops: IShop[],isLoading:boolean }) =
         </TableRow>
       </TableHeader>
       <TableBody>
+        {isLoading && <TableDataLoading cell={5} row={10} />}
         {shops.map((shop) => (
           <TableRow key={shop.id}>
             <TableCell>

@@ -9,6 +9,7 @@ import {
 import { useAppSelector } from "@/redux/hook";
 import { TUser } from "@/types/user";
 import NoTableDataFound from "../uiElements/NoTableDataFound";
+import TableDataLoading from "../uiElements/TableDataLoading";
 import DeleteUser from "./DeleteUser";
 import SuspendUser from "./SuspendUser";
 interface IProps {
@@ -30,6 +31,7 @@ const UsersTable: React.FC<IProps> = ({ users, isLoading }) => {
         </TableRow>
       </TableHeader>
       <TableBody>
+        {isLoading && <TableDataLoading cell={6} row={10} />}
         {users.map((user) => (
           <TableRow key={user.id}>
             <TableCell>{user.first_name}</TableCell>

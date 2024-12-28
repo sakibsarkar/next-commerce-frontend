@@ -72,6 +72,8 @@ export const api = createApi({
     "upload",
     "review",
     "coupon",
+
+    "newsLetter",
   ],
   endpoints: () => ({}),
 });

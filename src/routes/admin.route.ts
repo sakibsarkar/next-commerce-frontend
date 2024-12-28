@@ -2,6 +2,7 @@ import { NavItem } from "@/types/dashboardNav";
 import { BsFileEarmarkPost } from "react-icons/bs";
 import { CiCreditCard2, CiShop, CiViewList } from "react-icons/ci";
 import { GrServices } from "react-icons/gr";
+import { SiMinutemailer } from "react-icons/si";
 export const adminLinks: NavItem[] = [
   {
     href: "/dashboard/admin",
@@ -27,5 +28,10 @@ export const adminLinks: NavItem[] = [
     href: "/dashboard/admin/manage-categories",
     Icon: BsFileEarmarkPost,
     title: "Manage Categories",
+  },
+  {
+    href: "/dashboard/admin/manage-news-letters",
+    Icon: SiMinutemailer,
+    title: "Manage News Letters",
   },
 ];

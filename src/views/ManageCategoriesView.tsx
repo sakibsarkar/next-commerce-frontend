@@ -10,7 +10,7 @@ const ManageCategoriesView = () => {
     page: 1,
     searchTerm: "",
   });
-  const { data } = useGetAllCategoriesQuery(query);
+  const { data, isFetching } = useGetAllCategoriesQuery(query);
 
   return (
     <Card className="w-full mx-auto relative">
@@ -25,7 +25,7 @@ const ManageCategoriesView = () => {
           />
           <CreateCategory />
         </div>
-        <CategoryTable categories={data?.data || []} />
+        <CategoryTable isFetching={isFetching} categories={data?.data || []} />
       </CardContent>
     </Card>
   );

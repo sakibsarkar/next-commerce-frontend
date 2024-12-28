@@ -92,8 +92,8 @@ const TransactionChart = () => {
   }, [data]);
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6 mt-[25px]">
-      <canvas ref={chartRef}></canvas>
+    <div className="bg-white rounded-lg shadow-lg p-6 w-[60%]">
+      <canvas ref={chartRef} className="w-full h-[300px]"></canvas>
     </div>
   );
 };

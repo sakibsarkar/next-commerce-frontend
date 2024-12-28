@@ -38,7 +38,9 @@ const Checkout: React.FC<IProps> = ({ onCouponApplied }) => {
 
   const [checkCoupon, { isLoading: isCouponChecking }] =
     useCheckCouponMutation();
-  const [isCouponApplied, setIsCouponApplied] = useState(false);
+  const [appliedCoupon, setAppliedCoupon] = useState<ICoupon | undefined>(
+    undefined
+  );
 
   const [message, setMessage] = useState<{
     type: "success" | "error" | null;
@@ -60,7 +62,7 @@ const Checkout: React.FC<IProps> = ({ onCouponApplied }) => {
       const res = await checkCoupon(payload);
       const error = res.error as any;
       if (error) {
-        setIsCouponApplied(false);
+        setAppliedCoupon(undefined);
         onCouponApplied(undefined);
         setMessage({
           type: "error",
@@ -73,7 +75,7 @@ const Checkout: React.FC<IProps> = ({ onCouponApplied }) => {
       console.log(coupon);
 
       if (!coupon) {
-        setIsCouponApplied(false);
+        setAppliedCoupon(undefined);
         onCouponApplied(undefined);
         setMessage({
           type: "error",
@@ -82,11 +84,11 @@ const Checkout: React.FC<IProps> = ({ onCouponApplied }) => {
         return;
       }
 
-      setIsCouponApplied(true);
+      setAppliedCoupon(coupon);
       onCouponApplied(coupon);
       setMessage({ type: "success", text: "Coupon applied successfully!" });
     } catch (error) {
-      setIsCouponApplied(false);
+      setAppliedCoupon(undefined);
       onCouponApplied(undefined);
       setMessage({
         type: "error",
@@ -108,13 +110,33 @@ const Checkout: React.FC<IProps> = ({ onCouponApplied }) => {
   const router = useRouter();
 
   const [error, setError] = useState<string | null>(null);
+  const getCouponDiscountPrice = () => {
+    if (!appliedCoupon) return 0;
+    const product = items.find(
+      (item) => item.productId === appliedCoupon.productId
+    );
+    if (!product) return 0;
 
+    const couponDiscount = appliedCoupon.discount;
+    const price = getDiscountPrice(product.price, product.discount || 0);
+    const quantity = product.quantity;
+
+    if (!couponDiscount) {
+      return 0;
+    }
+    const discountPrice = (price * couponDiscount) / 100;
+    return discountPrice * quantity;
+  };
   const handlePayment = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const totalPrice = items.reduce((acc, item) => {
+    let totalPrice = items.reduce((acc, item) => {
       return acc + getDiscountPrice(item.price, item.discount) * item.quantity;
     }, 0);
+
+    if (appliedCoupon) {
+      totalPrice -= getCouponDiscountPrice();
+    }
 
     if (!selectedSipingAddress) {
       toast.error("Please select a shipping address");
@@ -153,7 +175,7 @@ const Checkout: React.FC<IProps> = ({ onCouponApplied }) => {
         return;
       }
 
-      const data = await createPaymentIntent(totalPrice);
+      const data = await createPaymentIntent(Math.round(totalPrice));
       const intentErr = data.error as any;
 
       if (intentErr) {
@@ -183,6 +205,7 @@ const Checkout: React.FC<IProps> = ({ onCouponApplied }) => {
       const pyalod = {
         shippingAddressId: selectedSipingAddress,
         paymentIntentId: paymentIntent.id,
+        couponCode: appliedCoupon?.code,
         orderItems: items.map((item) => {
           return {
             productId: item.productId,
@@ -230,12 +253,12 @@ const Checkout: React.FC<IProps> = ({ onCouponApplied }) => {
               value={couponCode}
               onChange={(e) => setCouponCode(e.target.value)}
               className="flex-grow"
-              disabled={isCouponApplied}
+              disabled={Boolean(appliedCoupon)}
             />
             <Button
               onClick={handleApplyCoupon}
               disabled={
-                !couponCode.trim() || isCouponApplied || isCouponChecking
+                !couponCode.trim() || Boolean(appliedCoupon) || isCouponChecking
               }
               className="center gap-[5px]"
             >
@@ -243,7 +266,7 @@ const Checkout: React.FC<IProps> = ({ onCouponApplied }) => {
               {isCouponChecking ? <FaSpinner className="animate-spin" /> : ""}
             </Button>
           </div>
-          {!isCouponApplied && items.length > 0 ? (
+          {!appliedCoupon && items.length > 0 ? (
             <p className="text-[13px] mt-[8px] flex items-center gap-[7px]">
               <span className="w-[15px] h-[15px] center bg-main text-white rounded-full">
                 <IoInformationSharp />

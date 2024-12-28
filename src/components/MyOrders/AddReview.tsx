@@ -107,7 +107,6 @@ const AddReview = ({ orderId }: { orderId: string }) => {
     }
 
     const imageUrl = res.data?.data || "";
-    console.log({ imageUrl });
 
     setFile({
       file: uploadedFie,

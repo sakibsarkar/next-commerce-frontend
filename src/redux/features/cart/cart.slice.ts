@@ -97,7 +97,6 @@ const cartSlice = createSlice({
 
       if (payload.quantity) {
         item.quantity = payload.quantity;
-        console.log(item.quantity);
 
         state.total = state.items.reduce(
           (acc, item) =>

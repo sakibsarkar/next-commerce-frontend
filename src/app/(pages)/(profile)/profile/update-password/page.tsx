@@ -37,8 +37,6 @@ const UpdatePassword = () => {
       const data = await resetPassword(values);
       const error: any = data.error;
 
-      console.log(error);
-
       if (error) {
         if (error.status === 403) {
           return toast.error("password didn;t matched", {

@@ -67,7 +67,6 @@ const CreateProductView = () => {
       stock: totalStock,
     };
 
-    console.log(payload);
 
     try {
       const res = await createProduct(payload);

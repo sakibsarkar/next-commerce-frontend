@@ -7,7 +7,6 @@ import { CreditCard, ShoppingBag, Store, Users } from "lucide-react";
 
 const DashboardOverviewView = () => {
   const { data } = useGetSystemOverviewQuery(undefined);
-  console.log(data);
 
   const cards = [
     { title: "Active Users", value: data?.data?.totalActiveUser, icon: Users },

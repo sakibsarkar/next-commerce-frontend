@@ -11,7 +11,6 @@ const ManageCategoriesView = () => {
     searchTerm: "",
   });
   const { data } = useGetAllCategoriesQuery(query);
-  console.log(data);
 
   return (
     <Card className="w-full mx-auto relative">

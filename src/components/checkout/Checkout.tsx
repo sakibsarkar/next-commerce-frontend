@@ -72,7 +72,6 @@ const Checkout: React.FC<IProps> = ({ onCouponApplied }) => {
       }
 
       const coupon = res.data?.data;
-      console.log(coupon);
 
       if (!coupon) {
         setAppliedCoupon(undefined);

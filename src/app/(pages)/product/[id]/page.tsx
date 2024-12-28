@@ -28,7 +28,6 @@ export default async function ProductDetails({ params }: any) {
   const data = await res.json();
 
   const product = data.data as IProduct & { coupons: ICoupon[] };
-  console.log({ product, params });
 
   return (
     <div className="mx-auto py-8">
@@ -65,7 +64,7 @@ export default async function ProductDetails({ params }: any) {
               {product?.avgRating?.toFixed(1)}
             </span>
           </div>
-          <div className="flex items-center justify-start gap-[15px]">
+          <div className="flex items-center justify-start gap-[15px] flex-wrap my-[8px]">
             {product?.coupons?.map((coupon) => (
               <CouponCard coupon={coupon} key={coupon.id} />
             ))}

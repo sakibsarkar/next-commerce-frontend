@@ -46,7 +46,7 @@ const BrowseCategories = () => {
         {categoryData.map((cat) => (
           <Link
             key={cat.id}
-            href={`/product?dcategory=${cat.id}`}
+            href={`/product?category=${cat.id}`}
             className="py-[10px] pl-[15px] border-b-[1px] border-[#d9d9d9] hover:bg-[#f3f3f3]"
           >
             {cat.label}

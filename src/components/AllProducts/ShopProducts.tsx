@@ -5,6 +5,7 @@ import { IProduct } from "@/types/product";
 import { useEffect, useState } from "react";
 import ProductCard from "../card/ProductCard";
 import ProductSkeleton from "../skeleton/ProductSkeleton";
+import { NextPagination } from "../uiElements/NextPagination";
 import NotProductFound from "./NotProductFound";
 
 const ShopProducts = ({
@@ -14,7 +15,7 @@ const ShopProducts = ({
 }) => {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
+  const [totalDoc, setTotalDoc] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [resolvedParams, setResolvedParams] = useState<{
     searchTerm: string;
@@ -31,7 +32,7 @@ const ShopProducts = ({
       const category = (search.category as string) || "";
       const min_price = (search.min_price as string) || "0";
       const max_price = (search.max_price as string) || "";
-      setProducts([]);
+
       setResolvedParams({ searchTerm, category, min_price, max_price });
       setPage(1);
     };
@@ -57,13 +58,10 @@ const ShopProducts = ({
       };
 
       if (data.data?.length > 0) {
-        setProducts((prevProducts) => [...prevProducts, ...data.data]);
-        const totalPages = Math.ceil(data.meta.totalDoc / 12);
-        if (page >= totalPages) {
-          setHasMore(false);
-        }
+        setProducts(data.data);
+        setTotalDoc(data?.meta?.totalDoc || 0);
       } else {
-        setHasMore(false);
+        setProducts([]);
       }
     } catch (error) {
       console.error("Error loading products:", error);
@@ -72,32 +70,17 @@ const ShopProducts = ({
     }
   };
 
-  const handleScroll = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop >=
-      document.documentElement.offsetHeight - 100
-    ) {
-      if (!isLoading && hasMore) {
-        setPage((prevPage) => prevPage + 1);
-      }
-    }
-  };
-
   useEffect(() => {
     if (resolvedParams) {
       loadProducts();
     }
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
   }, [page, resolvedParams]);
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [isLoading, hasMore]);
+  const handlePageChange = (newPage: number) => {
+    if (newPage > 0 && newPage <= totalDoc) {
+      setPage(newPage);
+    }
+  };
 
   if (!isLoading && products.length === 0) {
     return <NotProductFound />;
@@ -106,10 +89,6 @@ const ShopProducts = ({
   return (
     <div className="w-full flex flex-col gap-[15px]">
       <div className="gridResponsive w-full gap-[10px] sm:gap-[20px] justify-center">
-        {products.map((product: IProduct) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-
         {isLoading ? (
           <>
             <ProductSkeleton />
@@ -118,9 +97,12 @@ const ShopProducts = ({
             <ProductSkeleton />
           </>
         ) : (
-          ""
+          products.map((product: IProduct) => (
+            <ProductCard key={product.id} product={product} />
+          ))
         )}
       </div>
+      <NextPagination totalDocs={totalDoc} onPageChange={setPage} showText />
     </div>
   );
 };

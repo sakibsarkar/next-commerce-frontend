@@ -60,7 +60,7 @@ const ProductCard = ({ product }: { product: IProduct }) => {
   return (
     <>
       <div className={`h-auto w-full bg-white p-[10px] group/image`}>
-        <div className="w-full relative cursor-pointer overflow-hidden">
+        <div className="w-full aspect-square center bg-[#f1f1f1] relative cursor-pointer overflow-hidden">
           <Image
             src={product.images[0]}
             alt={product.name}

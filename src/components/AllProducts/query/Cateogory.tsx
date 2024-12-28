@@ -11,7 +11,6 @@ const Cateogory = () => {
   const { searchParams, updateSearchParams } = useSetSearchParams();
   const category = searchParams.get("category") || "";
   const selectedCategories = category.split(",");
-  const defaultCategory = searchParams.get("dcategory") || "";
   const [localSelectedCategories, setLocalSelectedCategories] =
     useState<string[]>(selectedCategories);
 
@@ -48,13 +47,6 @@ const Cateogory = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
-  useEffect(() => {
-    if (defaultCategory) {
-      updateSearchParams({ category: defaultCategory, dcategory: "" });
-      setLocalSelectedCategories([defaultCategory]);
-    }
-  }, [defaultCategory, updateSearchParams]);
 
   const handleCategoryChange = (category: string) => {
     const newCategories = selectedCategories.includes(category)

@@ -8,13 +8,13 @@
   }
 
   .layout_container {
-    @apply max-w-[1586px] mx-auto px-[10px] sm:px-[20px] md:px-[30px] lg:px-[50] xl:px-[80px];
+    @apply max-w-[1586px] mx-auto px-[10px] md:px-[20px] lg:px-[30] 2xl:px-[80px];
   }
 }
 
 .gridResponsive {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(222px, 250px));
+  grid-template-columns: repeat(auto-fill, minmax(222px, auto));
 }
 
 @keyframes spin {

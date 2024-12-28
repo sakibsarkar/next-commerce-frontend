@@ -31,10 +31,10 @@ const BrowseCategories = () => {
   }, [open, setOpen]);
   return (
     <div
-      className="w-[200px] lg:w-[300px] px-[1px] py-[8px] hover:border-[black] border-b-[1px] border-transparent cursor-pointer flex items-center gap-[8px] relative category"
+      className="flex lg:hidden xl:flex w-[200px] px-[1px] py-[8px] hover:border-[black] border-b-[1px] border-transparent cursor-pointer  items-center gap-[8px] relative category"
       onClick={() => setOpen(!open)}
     >
-      <Menu /> <h1>Browse Categories</h1>
+      <Menu className="h-4 w-4" /> <h1>Browse Categories</h1>
       <div
         className="absolute top-[53px] left-0 w-full max-h-[400px] flex flex-col gap-[0] bg-white  border-[#d9d9d9] overflow-hidden"
         style={{

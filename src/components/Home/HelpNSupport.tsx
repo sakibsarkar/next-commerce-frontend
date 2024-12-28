@@ -9,28 +9,28 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
 import { Separator } from "../ui/separator";
-import ContactForm from "./ContactForm";
+import SupportForm from "./SupportForm";
 export const metadata: Metadata = {
   title: "Contact Us",
   description: "Get in touch with our team",
 };
-const ContactUs = () => {
+const HelpNSupport = () => {
   return (
     <div className="mt-[50px] mb-[25px]">
       <div className="">
-        <h4 className="text-[25px] font-[700] text-mainTxt">Contact Us</h4>
+        <h4 className="text-[25px] font-[700] text-mainTxt">Hellp & Support</h4>
         <Separator className="my-[25px]" />
         <div className="grid md:grid-cols-2 gap-8">
           <Card>
             <CardHeader>
-              <CardTitle>Send us a message</CardTitle>
+              <CardTitle>Describe Your Issue</CardTitle>
               <CardDescription>
                 We&apos;d love to hear from you. Fill out the form below and
                 we&apos;ll get back to you as soon as possible.
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <ContactForm />
+              <SupportForm />
             </CardContent>
           </Card>
           <div className="h-full flex flex-col gap-[15px]">
@@ -144,4 +144,4 @@ const ContactUs = () => {
   );
 };
 
-export default ContactUs;
+export default HelpNSupport;

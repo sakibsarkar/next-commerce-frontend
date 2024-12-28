@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Banner = () => {
   return (
-    <div className="w-full min-h-[60vh]  flex items-start justify-start flex-col md:flex-row gap-[20px] mt-[20px] bg-white p-[15px]">
+    <div className="w-full flex items-start justify-start flex-col md:flex-row gap-[20px] mt-[20px] bg-white p-[15px]">
       <div className="relative overflow-hidden bg-[#f6f6f6] w-full h-[420px]">
         <div className="relative mx-auto w-full px-4 py-[50px] sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">

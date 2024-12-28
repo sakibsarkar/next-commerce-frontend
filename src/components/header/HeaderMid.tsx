@@ -41,7 +41,7 @@ const HeaderMid = () => {
 
           <button
             onClick={() => setShowSidebar(!showSidebar)}
-            className="md:hidden flex menuBTn text-main"
+            className="lg:hidden flex menuBTn text-main"
           >
             {showSidebar ? <X /> : <Menu />}
           </button>

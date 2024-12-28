@@ -6,7 +6,7 @@ import ProductCard from "../card/ProductCard";
 import { Separator } from "../ui/separator";
 
 const Products = async () => {
-  const res = await fetch(`${baseUrl}/product/get?limit=10`, {
+  const res = await fetch(`${baseUrl}/product/get?limit=12`, {
     next: {
       revalidate: 20 * 60, // 20 minutes
     },
@@ -16,7 +16,7 @@ const Products = async () => {
 
   return (
     <div className="w-full mt-[50px]">
-      <h4 className="text-[25px] font-[700] text-mainTxt">Lates Products</h4>
+      <h4 className="text-[25px] font-[700] text-mainTxt">Latest Products</h4>
       <Separator className="my-[25px]" />
       <div className="gridResponsive gap-[15px]">
         {data?.data?.map((product) => (

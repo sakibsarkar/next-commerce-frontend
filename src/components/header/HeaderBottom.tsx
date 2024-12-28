@@ -1,43 +1,46 @@
+"use client";
+
 import { useAppSelector } from "@/redux/hook";
-import { LucideShoppingCart } from "lucide-react";
+import { NavLink, navlinks } from "@/utils/navLinks";
+import { ChevronDown, LucideShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import BrowseCategories from "./BrowseCategories";
-const navlinks = [
-  {
-    lebel: "Home",
-    href: "/",
-  },
-  {
-    lebel: "All Products",
-    href: "/product",
-  },
-  {
-    lebel: "Recently viewed",
-    href: "/recent-products",
-  },
-  {
-    lebel: "Contact Us",
-    href: "/contact-us",
-  },
-];
+import MegaMenu from "./MegaMenu";
+
 const HeaderBottom = () => {
   const path = usePathname();
   const { items, total } = useAppSelector((state) => state.cart);
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
+
   return (
     <nav className="py-[12px] border-b-[1px] border-input">
       <div className="w-full flex items-center justify-between layout_container">
         <div className="flex items-center gap-[8px]">
           <BrowseCategories />
-          <ul className="hidden md:flex items-center justify-start gap-[20px] border-l-[1px] border-main !pl-[15px]">
-            {navlinks.map(({ lebel, href }, i) => (
+          <ul className="hidden lg:flex items-center justify-start gap-[10px] xl:border-l-[1px] border-main xl:pl-[15px]">
+            {navlinks.map((link: NavLink, i) => (
               <li
                 key={"categories" + i}
-                className={`list-none px-[15px] py-[3px] ${
-                  path === href ? "bg-main text-white" : "text-mainTxt"
+                className={`list-none px-[15px] py-[3px] relative ${
+                  path === link.href ? "bg-main text-white" : "text-mainTxt"
                 }`}
+                onMouseEnter={() => setActiveMenu(link.label)}
+                onMouseLeave={() => setActiveMenu(null)}
+                onClick={() => setActiveMenu(null)}
               >
-                <Link href={href}>{lebel}</Link>
+                <Link href={link.href} className="flex items-center gap-[5px]">
+                  {link.label}
+                  {link.children && link.children.length > 0 && (
+                    <ChevronDown className="h-4 w-4" />
+                  )}
+                </Link>
+                {link.children && activeMenu === link.label && (
+                  <div className="absolute top-full left-0 bg-white shadow-md z-10 min-w-[250px] border-t-[2px] border-main">
+                    <MegaMenu items={link.children} />
+                  </div>
+                )}
               </li>
             ))}
           </ul>
@@ -45,12 +48,6 @@ const HeaderBottom = () => {
 
         <div className="flex items-center">
           <div className="flex items-center justify-start gap-[10px]">
-            <Link
-              href="/profile/my-orders"
-              className="md:flex hidden items-center gap-[5px] font-[500] pr-[10px] border-r-[1px] border-black "
-            >
-              My Orders
-            </Link>
             <div className="flex items-center gap-[10px]">
               <Link href={"/cart"} className="text-main relative">
                 <LucideShoppingCart />

@@ -1,6 +1,6 @@
 import Banner from "@/components/Home/Banner";
-import ContactUs from "@/components/Home/ContactUs";
 import FollowedShopProduct from "@/components/Home/FollowedShopProduct";
+import HelpNSupport from "@/components/Home/HelpNSupport";
 import Products from "@/components/Home/Products";
 import RecentrlyViewProducts from "@/components/Home/RecentrlyViewProducts";
 import Tool from "@/components/Home/Tool";
@@ -12,7 +12,7 @@ const HomeView = () => {
       <Products />
       <FollowedShopProduct />
       <RecentrlyViewProducts />
-      <ContactUs />
+      <HelpNSupport />
       <Tool />
     </div>
   );

@@ -1,4 +1,5 @@
 import { useAppSelector } from "@/redux/hook";
+import { navlinks } from "@/utils/navLinks";
 import { LucideShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,18 +13,6 @@ import { Separator } from "../ui/separator";
 //     href: `/shop?dcategory=${cat._id}`,
 //   };
 // });
-
-const navLinks = [
-  {
-    lebel: "Home",
-    href: "/",
-  },
-  {
-    lebel: "All Products",
-    href: "/product",
-  },
-  // ...categoryLinks,
-];
 
 interface IProps {
   showSidebar: boolean;
@@ -77,13 +66,13 @@ const SideBar: React.FC<IProps> = ({ showSidebar, setShowSidebar }) => {
         <Image
           width={80}
           height={80}
-          src="/images/logo.jpg"
-          className="w-[80px] mix-blend-difference"
+          src="/images/logo.png"
+          className="w-[80px]"
           alt="ferox logo"
         />
       </Link>
       <div className="w-full flex flex-col mt-[20px]">
-        {navLinks.map(({ href, lebel }, i) => (
+        {navlinks.map(({ href, label }, i) => (
           <Link
             onClick={() => setShowSidebar(false)}
             key={i + "navlink"}
@@ -92,7 +81,7 @@ const SideBar: React.FC<IProps> = ({ showSidebar, setShowSidebar }) => {
               path === href ? "bg-main text-white" : "text-main"
             }`}
           >
-            {lebel}
+            {label}
           </Link>
         ))}
         {user && user.role === "CUSTOMER" ? (

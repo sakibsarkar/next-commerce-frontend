@@ -14,10 +14,18 @@ const DisplayShopProducts: React.FC<IProps> = ({ products, isLoading }) => {
       <h4 className="text-[25px] font-[700] text-mainTxt">Latest from Shop</h4>
       <Separator className="my-[25px]" />
       <div className="gridResponsive gap-[15px]">
+        {isLoading && (
+          <>
+            <ProductSkeleton />
+            <ProductSkeleton />
+            <ProductSkeleton />
+            <ProductSkeleton />
+            <ProductSkeleton />
+          </>
+        )}{" "}
         {products.map((product) => (
           <ProductCard product={product} key={product.id} />
         ))}
-
         {isLoading && (
           <>
             <ProductSkeleton />

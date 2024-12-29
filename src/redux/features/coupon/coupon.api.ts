@@ -16,6 +16,29 @@ const couponApi = api.injectEndpoints({
       },
       invalidatesTags: ["coupon"],
     }),
+    getCouponList: builder.query<
+      { data: ICoupon[]; meta: { totalDoc: number } },
+      Record<string, unknown>
+    >({
+      query: (query) => {
+        const entries = Object.entries(query);
+        let queryString = "";
+        entries.forEach(([key, value], index) => {
+          if (value) {
+            if (index === 0) {
+              queryString += `${key}=${value}`;
+            } else {
+              queryString += `&${key}=${value}`;
+            }
+          }
+        });
+        return {
+          url: `/coupon/get-coupon-list?${queryString}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["coupon"],
+    }),
   }),
 });
-export const {useCheckCouponMutation} = couponApi;
+export const { useCheckCouponMutation, useGetCouponListQuery } = couponApi;

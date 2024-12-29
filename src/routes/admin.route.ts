@@ -34,4 +34,9 @@ export const adminLinks: NavItem[] = [
     Icon: SiMinutemailer,
     title: "Manage News Letters",
   },
+  {
+    href: "/dashboard/admin/view-coupons",
+    Icon: SiMinutemailer,
+    title: "View Coupons of shops",
+  },
 ];

@@ -30,6 +30,7 @@ const ManageNewsLattersView = () => {
         <div className="w-full flex items-center justify-between gap-[15px] flex-wrap">
           <NextSearchBox
             className="mb-4"
+            placeholder="Search by email"
             onValueChange={(value) => setQuery({ ...query, searchTerm: value })}
           />
         </div>

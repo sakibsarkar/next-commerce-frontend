@@ -27,13 +27,13 @@ const DashboardHeader: React.FC<ISideBarState> = ({ setIsOpen }) => {
 
   return (
     <div className="w-full h-[70px] flex items-center justify-between px-[20px]  py-[10px] border-b shrink-0">
-      <Link href="/">
+      <Link href="/" className="md:flex hidden">
         <Image
           width={90}
           height={70}
           src="/images/logo.png"
           alt="logo"
-          className="w-[90px] md:flex hidden"
+          className="w-[90px]"
         />
       </Link>
 

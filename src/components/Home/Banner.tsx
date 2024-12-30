@@ -4,8 +4,8 @@ import HomePageBannerSliders from "../Banner";
 
 const Banner = () => {
   return (
-    <div className="w-full flex items-start justify-start flex-col md:flex-row gap-[20px] mt-[20px] bg-white p-[15px]">
-      <div className="relative overflow-hidden bg-[#f6f6f6] w-full h-[420px]">
+    <div className="w-full md:h-[60vh] flex items-start justify-start flex-col md:flex-row gap-[20px] bg-white p-[15px]">
+      <div className="relative overflow-hidden bg-[#f6f6f6] w-full h-[350px] sm:h-[450px] md:h-full">
         <HomePageBannerSliders />
         <div className="shrink-0 flex items-center gap-[15px] absolute bottom-[15px] right-[15px] z-[15]">
           <button
@@ -22,7 +22,7 @@ const Banner = () => {
           </button>
         </div>
       </div>
-      <div className="w-full md:w-[30%] h-[420px]  flex flex-col gap-[20px] shrink-0">
+      <div className="w-full md:w-[30%] h-[450px] md:h-full  flex flex-col gap-[20px] shrink-0">
         <div
           className="w-full h-full bg-cover bg-no-repeat pl-[15px] flex items-center"
           style={{ backgroundImage: `url("/images/banner/banner1.jpg")` }}

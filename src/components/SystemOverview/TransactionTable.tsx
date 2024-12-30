@@ -17,7 +17,7 @@ const TransactionTable = () => {
   });
 
   return (
-    <Card className="w-[40%] overflow-hidden">
+    <Card className="w-[100%] overflow-hidden">
       <Table className="w-full">
         <TableHeader>
           <TableRow>

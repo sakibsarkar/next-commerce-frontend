@@ -1,7 +1,7 @@
 import { api } from "@/redux/api/appSlice";
 import { IPayment } from "@/types/payment";
 import { IShop } from "@/types/shop";
-import { TUser } from "@/types/user";
+import { TRole, TUser } from "@/types/user";
 
 interface ISystemOverview {
   totalActiveUser: number;
@@ -16,6 +16,18 @@ const adminApi = api.injectEndpoints({
       query: () => {
         return {
           url: `/admin/system-overview`,
+          method: "GET",
+        };
+      },
+      providesTags: ["admin"],
+    }),
+    getVendorUserChartData: builder.query<
+      { data: { role: TRole; percentage: number }[] },
+      undefined
+    >({
+      query: () => {
+        return {
+          url: `/admin/vendor-user-chart-data`,
           method: "GET",
         };
       },
@@ -140,11 +152,12 @@ const adminApi = api.injectEndpoints({
 });
 export const {
   useGetSystemOverviewQuery,
+  useGetVendorUserChartDataQuery,
   useGetMonthlyTransactionChartDataQuery,
   useGetTransactionHistoryQuery,
   useGetUserListQuery,
   useDeleteUserByIdMutation,
   useToggleUserSuspensionByIdMutation,
   useGetShopListQuery,
-  useToggleShopBlacklistByIdMutation
+  useToggleShopBlacklistByIdMutation,
 } = adminApi;

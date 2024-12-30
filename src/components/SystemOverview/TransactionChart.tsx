@@ -1,99 +1,64 @@
+"use client";
 import { useGetMonthlyTransactionChartDataQuery } from "@/redux/features/admin/admin.api";
 import {
-  CategoryScale,
-  Chart,
-  LinearScale,
-  LineController,
-  LineElement,
-  PointElement,
-  Title,
-} from "chart.js";
-import { useEffect, useRef } from "react";
-
-// Register Chart.js components
-Chart.register(
-  LineController,
-  LineElement,
-  PointElement,
-  LinearScale,
-  Title,
-  CategoryScale
-);
+  CartesianGrid,
+  Legend,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 const TransactionChart = () => {
   const { data } = useGetMonthlyTransactionChartDataQuery(undefined);
-  const chartRef = useRef<HTMLCanvasElement>(null);
 
-  useEffect(() => {
-    if (!data || !chartRef.current) return;
+  // Prepare data for Recharts
+  const chartData =
+    data?.data.map((value, index) => ({
+      month: [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ][index],
+      transactions: value,
+    })) || [];
 
-    const chartInstance = new Chart(chartRef.current, {
-      type: "line",
-      data: {
-        labels: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December",
-        ],
-        datasets: [
-          {
-            label: "Successful Transactions",
-            data: data.data,
-            borderColor: "rgba(75, 192, 192, 1)",
-            backgroundColor: "rgba(75, 192, 192, 0.2)",
-            borderWidth: 2,
-            tension: 0.3, // Smooth curve
-            pointBackgroundColor: "rgba(75, 192, 192, 1)",
-            pointBorderColor: "#fff",
-            pointHoverBackgroundColor: "#fff",
-            pointHoverBorderColor: "rgba(75, 192, 192, 1)",
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          title: {
-            display: true,
-            text: "Monthly Successful Transactions",
-          },
-        },
-        scales: {
-          x: {
-            title: {
-              display: true,
-              text: "Months",
-            },
-          },
-          y: {
-            beginAtZero: true,
-            title: {
-              display: true,
-              text: "Transaction Amount",
-            },
-          },
-        },
-      },
-    });
-
-    // Cleanup chart instance on component unmount
-    return () => {
-      chartInstance.destroy();
-    };
-  }, [data]);
-
+  const year = new Date().getFullYear();
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6 w-[60%]">
-      <canvas ref={chartRef} className="w-full h-[300px]"></canvas>
+    <div className="bg-white rounded-lg shadow-lg p-6 w-full h-96">
+      <h2 className="text-2xl font-bold mb-4">
+        Monthly Transaction of {year}{" "}
+      </h2>
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart
+          data={chartData}
+          margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="month" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line
+            type="monotone"
+            dataKey="transactions"
+            stroke="#4bc0c0"
+            strokeWidth={2}
+            activeDot={{ r: 8 }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
     </div>
   );
 };

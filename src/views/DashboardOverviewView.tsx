@@ -2,6 +2,7 @@
 
 import TransactionChart from "@/components/SystemOverview/TransactionChart";
 import TransactionTable from "@/components/SystemOverview/TransactionTable";
+import VendorAndUserPieChart from "@/components/SystemOverview/VendorAndUserPieChart";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useGetSystemOverviewQuery } from "@/redux/features/admin/admin.api";
 import { CreditCard, ShoppingBag, Store, Users } from "lucide-react";
@@ -52,10 +53,11 @@ const DashboardOverviewView = () => {
           </div>
         ))}
       </div>
-      <div className="flex items-start justify-start gap-[15px] mt-[15px]">
+      <div className="flex items-start justify-start gap-[15px] my-[25px] flex-col xl:flex-row">
         <TransactionChart />
-        <TransactionTable />
+        <VendorAndUserPieChart />
       </div>
+      <TransactionTable />
     </div>
   );
 };

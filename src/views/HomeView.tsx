@@ -12,7 +12,7 @@ import TrustBadge from "@/components/Home/TrustBadge";
 
 const HomeView = () => {
   return (
-    <div className="w-full py-[50px]">
+    <div className="w-full py-[20px] md:py-[50px]">
       <Banner />
       <Category />
       <Products />

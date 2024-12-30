@@ -15,7 +15,7 @@ const Products = async () => {
   const data = (await res.json()) as { data: IProduct[] };
 
   return (
-    <div className="w-full mt-[50px]">
+    <section id="latest" className="w-full mt-[50px]">
       <h4 className="text-[25px] font-[700] text-mainTxt">Latest Products</h4>
       <Separator className="my-[25px]" />
       <div className="gridResponsive gap-[15px]">
@@ -23,7 +23,7 @@ const Products = async () => {
           <ProductCard product={product} key={product.id} />
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

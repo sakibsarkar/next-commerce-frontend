@@ -9,14 +9,22 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { logout } from "@/redux/features/auth/auth.slice";
 import { useAppSelector } from "@/redux/hook";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { IoMenu } from "react-icons/io5";
+import { useDispatch } from "react-redux";
 
 const DashboardHeader: React.FC<ISideBarState> = ({ setIsOpen }) => {
   const { user } = useAppSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout(undefined));
+  };
+
   return (
     <div className="w-full h-[70px] flex items-center justify-between px-[20px]  py-[10px] border-b shrink-0">
       <Link href="/">
@@ -54,6 +62,11 @@ const DashboardHeader: React.FC<ISideBarState> = ({ setIsOpen }) => {
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
               <Link href={"/"}>Home</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <button onClick={handleLogout} className="w-full">
+                Logout
+              </button>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

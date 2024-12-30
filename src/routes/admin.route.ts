@@ -2,6 +2,7 @@ import { NavItem } from "@/types/dashboardNav";
 import { BsFileEarmarkPost } from "react-icons/bs";
 import { CiCreditCard2, CiShop, CiViewList } from "react-icons/ci";
 import { GrServices } from "react-icons/gr";
+import { RiCouponLine } from "react-icons/ri";
 import { SiMinutemailer } from "react-icons/si";
 export const adminLinks: NavItem[] = [
   {
@@ -36,7 +37,7 @@ export const adminLinks: NavItem[] = [
   },
   {
     href: "/dashboard/admin/view-coupons",
-    Icon: SiMinutemailer,
-    title: "View Coupons of shops",
+    Icon: RiCouponLine,
+    title: "Manage Coupons of shops",
   },
 ];

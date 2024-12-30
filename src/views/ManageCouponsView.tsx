@@ -1,4 +1,5 @@
 "use client";
+import CreateCoupon from "@/components/CouponManagement/CreateCoupon";
 import DeleteCouponById from "@/components/CouponManagement/DeleteCouponById";
 import {
   Card,
@@ -17,15 +18,16 @@ import {
 import DashboardHeading from "@/components/uiElements/DashboardHeading";
 import { NextPagination } from "@/components/uiElements/NextPagination";
 import NextSearchBox from "@/components/uiElements/NextSearchBox";
+import NoTableDataFound from "@/components/uiElements/NoTableDataFound";
 import TableDataFetching from "@/components/uiElements/TableDataFetching";
 import TableDataLoading from "@/components/uiElements/TableDataLoading";
-import { useGetCouponListQuery } from "@/redux/features/coupon/coupon.api";
+import { useGetVendorCouponListQuery } from "@/redux/features/coupon/coupon.api";
 import Image from "next/image";
 import { useState } from "react";
 import { toast } from "sonner";
-const ViewCoupons = () => {
+const ManageCouponsView = () => {
   const [query, setQuery] = useState({ page: 1, limit: 10, searchTerm: "" });
-  const { data, isFetching, isLoading } = useGetCouponListQuery(query);
+  const { data, isFetching, isLoading } = useGetVendorCouponListQuery(query);
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -39,7 +41,7 @@ const ViewCoupons = () => {
         description="view couponse that are provided by different vendors on different products on this site"
       />
       <Card className="mt-4">
-        <CardHeader>
+        <CardHeader className="flex items-center flex-row justify-between">
           <NextSearchBox
             className="mb-4"
             placeholder="Seach by coupon code/id"
@@ -47,6 +49,7 @@ const ViewCoupons = () => {
               setQuery({ ...query, searchTerm });
             }}
           />
+          <CreateCoupon />
         </CardHeader>
 
         <CardContent className="relative">
@@ -57,7 +60,6 @@ const ViewCoupons = () => {
                 <TableHead>Code</TableHead>
                 <TableHead>Discount</TableHead>
                 <TableHead>Product</TableHead>
-                <TableHead>Shop</TableHead>
                 <TableHead>Date</TableHead>
                 <TableHead>Action</TableHead>
               </TableRow>
@@ -105,24 +107,10 @@ const ViewCoupons = () => {
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell>
-                      <div className="flex items-start justify-start gap-[5px]">
-                        <div className="w-[35px] h-[35px] center bg-[#e6e6e6] rounded-full overflow-hidden">
-                          <Image
-                            src={coupon.productInfo?.shopInfo?.logo || ""}
-                            alt={coupon.productInfo?.shopInfo?.name || ""}
-                            width={35}
-                            height={35}
-                            className="w-full h-full object-cover rounded-full"
-                          />
-                        </div>
-                        <h5>{coupon.productInfo?.shopInfo?.name || "N/A"}</h5>
-                      </div>
-                    </TableCell>
+
                     <TableCell>
                       {new Date(coupon.createdAt).toLocaleDateString()}
                     </TableCell>
-
                     <TableCell>
                       <DeleteCouponById
                         code={coupon.code}
@@ -132,6 +120,11 @@ const ViewCoupons = () => {
                   </TableRow>
                 );
               })}
+              {!isFetching && data?.data.length === 0 ? (
+                <NoTableDataFound span={6} />
+              ) : (
+                ""
+              )}
             </TableBody>
           </Table>
           {isFetching && !isLoading ? <TableDataFetching /> : ""}
@@ -148,4 +141,4 @@ const ViewCoupons = () => {
   );
 };
 
-export default ViewCoupons;
+export default ManageCouponsView;

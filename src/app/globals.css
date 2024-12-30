@@ -162,6 +162,19 @@
   }
 }
 
+.swiper-pagination-bullet-active {
+  background-color: #f3c614 !important;
+}
+
+.primary_radial_gradient {
+  background: rgb(243, 198, 20);
+  background: radial-gradient(
+    circle,
+    rgba(243, 198, 20, 1) 0%,
+    rgba(255, 100, 61, 1) 100%
+  );
+}
+
 input:focus,
 textarea:focus,
 input:hover,

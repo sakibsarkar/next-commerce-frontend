@@ -26,7 +26,7 @@ export const navlinks: NavLink[] = [
         href: "/product",
         children: categoryData.map((cat) => ({
           label: cat.label,
-          href: `/product?dcategory=${cat.id}`,
+          href: `/product?category=${cat.id}`,
         })),
       },
       {

@@ -19,7 +19,7 @@ const config = {
     },
     extend: {
       typography:
-        "() => ({\r\n        DEFAULT: {\r\n          css: {\r\n            h1: null, // Removes styles for h1\r\n            p: null, // Removes styles for p\r\n            ul: null, // Removes styles for ul\r\n            li: null, // Removes styles for li\r\n            ol: null, // Removes styles for li\r\n            // Add any other tags you want to remove default styles from\r\n          },\r\n        },\r\n      })",
+        "() => ({\\r\\n        DEFAULT: {\\r\\n          css: {\\r\\n            h1: null, // Removes styles for h1\\r\\n            p: null, // Removes styles for p\\r\\n            ul: null, // Removes styles for ul\\r\\n            li: null, // Removes styles for li\\r\\n            ol: null, // Removes styles for li\\r\\n            // Add any other tags you want to remove default styles from\\r\\n          },\\r\\n        },\\r\\n      })",
       colors: {
         mainTxt: "#253D4E",
         main: "#f3c614",

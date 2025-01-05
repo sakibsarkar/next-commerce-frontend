@@ -1,4 +1,5 @@
 import Banner from "@/components/Home/Banner";
+import BecomeVendor from "@/components/Home/BecomeVendor";
 import Category from "@/components/Home/Category";
 import Features from "@/components/Home/Features";
 import FollowedShopProduct from "@/components/Home/FollowedShopProduct";
@@ -24,6 +25,7 @@ const HomeView = () => {
         <Guarantee />
       </div>
       <TrustBadge />
+      <BecomeVendor />
       <HelpNSupport />
       <Tool />
     </div>

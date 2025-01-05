@@ -49,8 +49,8 @@ export default function NewsletterSection() {
     <section className="relative overflow-hidden border-t bg-white my-[50px]">
       {/* Background Pattern */}
       <div className="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20">
-        <div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700" />
-        <div className="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
+        <div className="blur-[106px] h-56 bg-gradient-to-br from-[#ff4694] to-main" />
+        <div className="blur-[106px] h-32 bg-gradient-to-r from-main to-[#ffd069] dark:to-indigo-600" />
       </div>
 
       <div className="relative container px-4 py-16 md:py-24 lg:px-8 lg:py-32 mx-auto">
@@ -81,7 +81,11 @@ export default function NewsletterSection() {
                   disabled={isLoading}
                 />
               </div>
-              <Button type="submit" disabled={isLoading}>
+              <Button
+                className="bg-main hover:bg-main/80"
+                type="submit"
+                disabled={isLoading}
+              >
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />

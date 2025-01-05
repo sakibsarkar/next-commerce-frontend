@@ -8,7 +8,7 @@ const CouponCard: React.FC<IProps> = ({ coupon }) => {
   const [copied, setCopied] = useState(false);
 
   const copyCode = () => {
-    navigator.clipboard.writeText("SALE2024");
+    navigator.clipboard.writeText(coupon.code);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
